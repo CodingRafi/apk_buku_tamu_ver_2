@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Buku Tamu</title>
 
     <meta name="description" content="" />
 
@@ -34,6 +34,12 @@
 
     <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
+        rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
 
     {{-- Tambahan Css --}}
     @yield('tambahancss')
@@ -63,7 +69,6 @@
             scrollbar-width: none;
             /* Firefox */
         }
-
     </style>
 </head>
 
@@ -109,10 +114,16 @@
     <!-- Page JS -->
     <script src="/assets/js/dashboards-analytics.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     @yield('tambahanjs')
+
 </body>
 
 </html>

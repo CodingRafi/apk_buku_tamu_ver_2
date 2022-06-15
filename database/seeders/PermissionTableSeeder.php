@@ -25,16 +25,6 @@ class PermissionTableSeeder extends Seeder
             'add_roles',
             'edit_roles',
 
-            'view_courses',
-            'add_courses',
-            'edit_courses',
-            'delete_courses',
-
-            'view_lessons',
-            'add_lessons',
-            'edit_lessons',
-            'delete_lessons',
-
             'view_admin',
         ];
 

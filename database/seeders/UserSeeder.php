@@ -36,39 +36,17 @@ class UserSeeder extends Seeder
 
 
         //? Membuat role Teacher 
-        $roleTeacher = Role::create([
-            'name' => 'teacher',
+        $rolePengawas = Role::create([
+            'name' => 'pengawas',
             'guard_name' => 'web'
         ]);
 
-        $izinTeachers = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
-        $resultTeacher = array_map(function($izinTeacher){
-            return $izinTeacher;
-        }, $izinTeachers);
+        $izinpengawases = [];
+        $resultPengawas = array_map(function($izinPengawas){
+            return $izinPengawas;
+        }, $izinpengawases);
 
-        $roleTeacher->syncPermissions($resultTeacher);
+        $rolePengawas->syncPermissions($resultPengawas);
 
-
-        //? Membuat Role Student 
-        $roleStudent = Role::create([
-            'name' => 'student',
-            'guard_name' => 'web'
-        ]);
-
-        $izinStudents = ['9', '13'];
-
-        $resultStudent = array_map(function($izinStudent){
-            return $izinStudent;
-        },$izinStudents);
-
-        $roleStudent->syncPermissions($resultStudent);
-
-        $user = User::create([
-            'name' => 'User',
-            'email' => 'user@gmail.com',
-            'password' => bcrypt('12345678'),
-        ]);
-
-        $user->assignRole('student');
     }
 }

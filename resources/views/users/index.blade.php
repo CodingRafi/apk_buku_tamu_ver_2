@@ -1,6 +1,7 @@
 @extends('mylayouts.main')
 
 @section('container')
+    {{-- @dd('oke') --}}
     <div class="content-wrapper">
         <!-- Content -->
 
@@ -23,23 +24,23 @@
                     </div>
                 </div>
                 <div class="table-responsive" style="height: 65vh">
-                    <table class="table" style="text-align: center">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Name User</th>
-                                <th>Email User</th>
-                                <th>Role</th>
-                                @can('edit_users', 'delete_users')
-                                <th>Actions</th>
-                                @endcan
-                            </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                            @foreach ($users as $user)
-                                @if ($user->getRoleNames()[0] != 'admin')
+                    @if (count($users) > 0)
+                        <table class="table" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name User</th>
+                                    <th>Email User</th>
+                                    <th>Role</th>
+                                    @can('edit_users', 'delete_users')
+                                        <th>Actions</th>
+                                    @endcan
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                @foreach ($users as $user)
                                     <tr>
-                                        <td>{{ $loop->iteration - 1 }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
@@ -49,28 +50,34 @@
                                                 @endforeach
                                             @endif
                                         </td>
-                                        @can('edit_users', 'delete_users')     
-                                        <td>
-                                            @can('edit_users')
-                                            <a href="{{ route('users.edit', $user->id) }}"
-                                                class="btn btn-warning">Update</a>
-                                            @endcan
-                                            @can('delete_users')    
-                                            <form action="{{ route('users.destroy', $user->id) }}" method="post"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">Delete</button>
-                                            </form>
-                                            @endcan
-                                        </td>
+                                        @can('edit_users', 'delete_users')
+                                            <td>
+                                                @can('edit_users')
+                                                    <a href="{{ route('users.edit', $user->id) }}"
+                                                        class="btn btn-warning {{ ($user->hasRole('admin')) ? 'disabled' : '' }}">Update</a>
+                                                @endcan
+                                                @can('delete_users')
+                                                    <form action="{{ route('users.destroy', $user->id) }}" method="post"
+                                                        class="d-inline">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-danger"
+                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')" {{ ($user->hasRole('admin')) ? 'disabled' : '' }}>Delete</button>
+                                                    </form>
+                                                @endcan
+                                            </td>
                                         @endcan
                                     </tr>
-                                @endif
-                            @endforeach
-                        </tbody>
-                    </table>
+                                    @if ($user->getRoleNames()[0] != 'admin')
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="alert alert-info text-center" role="alert">
+                            Data tidak ditemukan
+                        </div>
+                    @endif
                 </div>
             </div>
 

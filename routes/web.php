@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\RegisteredUserController;
 
 /*
@@ -16,12 +17,18 @@ use App\Http\Controllers\RegisteredUserController;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('tamu');
+});
+Route::get('create-data', [BukuTamuController::class, 'create_tamu']);
+
 
 Route::group(['middleware' => ['auth']], function() {
+    Route::get('/dashboard', function(){
+        return view('dashboard');
+    });
     Route::resource('roles', RoleController::class);
     Route::resource('users', RegisteredUserController::class);
+    Route::resource('buku-tamu', BukuTamuController::class);
 });
 
 require __DIR__.'/auth.php';
