@@ -36,4 +36,13 @@ class BukuTamu extends Model
 
         return $namaTandaTangan;
     }
+
+    public function scopeSearch($query, array $search)
+    {
+        $query->when($search['search'] ?? false, function($query, $search){
+            return $query->where('buku_tamus.nama', 'like', '%' . $search . '%')
+                        ->orWhere('buku_tamus.instansi', 'like', '%' . $search . '%')
+                        ->orWhere('buku_tamus.alamat', 'like', '%' . $search . '%');
+        });
+    }
 }
