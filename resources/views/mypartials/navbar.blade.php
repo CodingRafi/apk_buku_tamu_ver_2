@@ -8,13 +8,14 @@ id="layout-navbar">
 
 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
     <!-- Search -->
-    <div class="navbar-nav align-items-center">
-        <div class="nav-item d-flex align-items-center">
-            <i class="bx bx-search fs-4 lh-0"></i>
-            <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                aria-label="Search..." />
+    <form action="/buku-tamu" method="get" style="width: 25rem;">
+        <div class="navbar-nav align-items-center" style="width: 25rem;">
+            <div class="nav-item d-flex align-items-center" style="width: 25rem;">
+                <i class="bx bx-search fs-4 lh-0"></i>
+                <input type="text" class="form-control border-0 shadow-none" placeholder="Search Nama Tamu, Instansi, Alamat..." name="search" value="{{ request('search') }}"/>
+            </div>
         </div>
-    </div>
+    </form>
     <!-- /Search -->
 
     <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -31,7 +32,7 @@ id="layout-navbar">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                 data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                    <img src="/assets/img/avatars/1.png" alt
+                    <img src="/img/avatar-1.png" alt
                         class="w-px-40 h-auto rounded-circle" />
                 </div>
             </a>
@@ -41,7 +42,7 @@ id="layout-navbar">
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                                 <div class="avatar avatar-online">
-                                    <img src="/assets/img/avatars/1.png" alt
+                                    <img src="/img/avatar-1.png" alt
                                         class="w-px-40 h-auto rounded-circle" />
                                 </div>
                             </div>
@@ -50,31 +51,6 @@ id="layout-navbar">
                                 <small class="text-muted">Admin</small>
                             </div>
                         </div>
-                    </a>
-                </li>
-                <li>
-                    <div class="dropdown-divider"></div>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">
-                        <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                            <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                            <span class="flex-grow-1 align-middle">Billing</span>
-                            <span
-                                class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
                     </a>
                 </li>
                 <li>
