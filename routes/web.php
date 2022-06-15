@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Models\BukuTamu;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', RegisteredUserController::class);
     Route::resource('buku-tamu', BukuTamuController::class);
+    Route::get('/excel', function(){return BukuTamu::excel();});
 });
 
 require __DIR__.'/auth.php';

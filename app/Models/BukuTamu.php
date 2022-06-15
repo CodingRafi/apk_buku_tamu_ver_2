@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class BukuTamu extends Model
 {
@@ -44,5 +45,9 @@ class BukuTamu extends Model
                         ->orWhere('buku_tamus.instansi', 'like', '%' . $search . '%')
                         ->orWhere('buku_tamus.alamat', 'like', '%' . $search . '%');
         });
+    }
+
+    public static function excel(){
+        return (new FastExcel(BukuTamu::all()))->download('data.xlsx');
     }
 }

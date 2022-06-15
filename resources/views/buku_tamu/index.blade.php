@@ -23,11 +23,12 @@
             <div class="card">
                 <div class="container-fluid p-0">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             <h5 class="card-header">Buku Tamu</h5>
                         </div>
-                        <div class="col-md-2 d-flex justify-center align-items-center p-0">
-                            <a href="/buku-tamu/create" class="btn btn-primary tombol-buat-user">Create Tamu</a>
+                        <div class="col-md-4 d-flex justify-center align-items-center p-0">
+                            <a href="/buku-tamu/create" class="btn btn-primary tombol-buat-user" style="margin-right: 10px">Create Tamu</a>
+                            <a href="/excel" class="btn btn-primary tombol-buat-user">Export Excel</a>
                         </div>
                     </div>
                 </div>
