@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BukuTamu;
 use App\Http\Requests\StoreBukuTamuRequest;
 use App\Http\Requests\UpdateBukuTamuRequest;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use DB;
 
 class BukuTamuController extends Controller
@@ -16,7 +18,7 @@ class BukuTamuController extends Controller
      */
     public function index()
     {
-        $datatamu = BukuTamu::paginate(20);
+        $datatamu = BukuTamu::search(request(['search']))->paginate(20);
 
         return view('buku_tamu.index', [
             'datatamu' => $datatamu,
@@ -127,19 +129,17 @@ class BukuTamuController extends Controller
      */
     public function destroy(BukuTamu $bukuTamu)
     {
-        $data = DB::table('datatamus')->where('id', $id)->get()->first();
-
-        if ($data->image) {
-            File::delete('storage/' . $data->image);
+        if ($bukuTamu->image) {
+            File::delete('storage/' . $bukuTamu->image);
         }
 
-        if ($data->signed) {
-            File::delete('tandatangan/' . $data->signed);
+        if ($bukuTamu->signed) {
+            File::delete('tandatangan/' . $bukuTamu->signed);
         }   
 
-        DB::table('datatamus')->where('id', $id)->delete();
+        BukuTamu::destroy($bukuTamu->id);
 
-        return redirect()->route('showdata')->with('success', 'Data Berhasil DiHapus!');
+        return redirect('/buku-tamu')->with('success', 'Data Berhasil DiHapus!');
     }
 
     public function create_tamu(){
