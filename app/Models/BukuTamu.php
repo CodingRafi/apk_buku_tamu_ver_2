@@ -13,7 +13,7 @@ class BukuTamu extends Model
     protected $guarded = ['id'];
 
     public static function create_image($img){
-        $folderPath = "storage/";
+        $folderPath = "image/";
         $image_parts = explode(";base64,", $img);
         foreach ($image_parts as $key => $image){
             $image_base64 = base64_decode($image);

@@ -4,8 +4,8 @@
             <span class="app-brand-logo demo">
                 <img src="/img/logoStarbhakForApp.png" alt="" style="width: 2.8rem;">
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform: capitalize;">Visitor
-                Log</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform: capitalize;">Buku
+                Tamu</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -17,7 +17,7 @@
 
     <ul class="menu-inner py-1" style="overflow-y: auto;overflow-x: hidden">
         <!-- Dashboard -->
-        <li class="menu-item {{ Request::is('/dashboard') ? 'active' : '' }}">
+        <li class="menu-item {{ Request::is('dashboard') ? 'active' : '' }}">
             <a href="/dashboard" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -44,12 +44,14 @@
             </li>
         @endcan
 
-        <li class="menu-item {{ Request::is('buku-tamu') ? 'active' : '' }}">
-            <a href="{{ route('buku-tamu.index') }}" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-book'></i>
-                <div data-i18n="Analytics">Buku Tamu</div>
-            </a>
-        </li>
+        @can('view_buku_tamu', 'add_buku_tamu', 'edit_buku_tamu', 'delete_buku_tamu', 'buku_tamu_ekspor')
+            <li class="menu-item {{ Request::is('buku-tamu') ? 'active' : '' }}">
+                <a href="{{ route('buku-tamu.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-book'></i>
+                    <div data-i18n="Analytics">Buku Tamu</div>
+                </a>
+            </li>
+        @endcan
 
     </ul>
 </aside>

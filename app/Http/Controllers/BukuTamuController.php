@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BukuTamu;
 use App\Http\Requests\StoreBukuTamuRequest;
 use App\Http\Requests\UpdateBukuTamuRequest;
+use App\Models\BukuTamu;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use DB;
 
 class BukuTamuController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view_buku_tamu|edit_buku_tamu|delete_buku_tamu', ['only' => ['index', 'show']]);
+        $this->middleware('permission:edit_buku_tamu', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete_buku_tamu', ['only' => ['destroy']]);
+        $this->middleware('permission:buku_tamu_ekspor', ['only' => ['ekspor']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -83,7 +90,7 @@ class BukuTamuController extends Controller
     public function edit(BukuTamu $bukuTamu)
     {
         return view('buku_tamu.update', [
-            'data' => $bukuTamu
+            'data' => $bukuTamu,
         ]);
     }
 
@@ -104,7 +111,7 @@ class BukuTamuController extends Controller
 
         if ($request->image) {
             if ($bukuTamu->image) {
-                File::delete('storage/' . $bukuTamu->image);
+                File::delete('image/' . $bukuTamu->image);
             }
             $validatedData['image'] = DataTamu::create_image($request->image);
         }
@@ -130,19 +137,25 @@ class BukuTamuController extends Controller
     public function destroy(BukuTamu $bukuTamu)
     {
         if ($bukuTamu->image) {
-            File::delete('storage/' . $bukuTamu->image);
+            File::delete('image/' . $bukuTamu->image);
         }
 
         if ($bukuTamu->signed) {
             File::delete('tandatangan/' . $bukuTamu->signed);
-        }   
+        }
 
         BukuTamu::destroy($bukuTamu->id);
 
         return redirect('/buku-tamu')->with('success', 'Data Berhasil DiHapus!');
     }
 
-    public function create_tamu(){
+    public function create_tamu()
+    {
         return view('tambah');
+    }
+
+    public function ekspor()
+    {
+        return BukuTamu::excel();
     }
 }

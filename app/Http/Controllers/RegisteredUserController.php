@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
 use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
+use Illuminate\Validation\Rule;
 
 class RegisteredUserController extends Controller
 {
 
-    function __construct()
+    public function __construct()
     {
-         $this->middleware('permission:view_users|add_users|edit_users|delete_users', ['only' => ['index','store']]);
-         $this->middleware('permission:add_users', ['only' => ['create','store']]);
-         $this->middleware('permission:edit_users', ['only' => ['edit','update']]);
-         $this->middleware('permission:delete_users', ['only' => ['destroy']]);
+        $this->middleware('permission:view_users|add_users|edit_users|delete_users', ['only' => ['index', 'store']]);
+        $this->middleware('permission:add_users', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit_users', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete_users', ['only' => ['destroy']]);
     }
 
     /**
@@ -27,7 +30,7 @@ class RegisteredUserController extends Controller
     public function index()
     {
         $users = User::all();
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::pluck('name', 'name')->all();
         return view('users.index', compact('roles', 'users'));
     }
 
@@ -49,16 +52,17 @@ class RegisteredUserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|max:255',
-            'roles' => 'required'
+            'roles' => 'required',
         ]);
 
         $validatedData['password'] = Hash::make($request->password);
+        $validatedData['foto_profil'] = '/img/avatar-1.png';
 
         $user = User::create($validatedData);
         $user->assignRole($request->roles);
-    
+
         return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+            ->with('success', 'User created successfully');
     }
 
     /**
@@ -69,7 +73,7 @@ class RegisteredUserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('users.show');
     }
 
     /**
@@ -80,9 +84,9 @@ class RegisteredUserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles;
-        return view('users.update',compact('user','roles','userRole'));
+        return view('users.update', compact('user', 'roles', 'userRole'));
     }
 
     /**
@@ -96,19 +100,19 @@ class RegisteredUserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-            'roles' => 'required'
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'roles' => 'required',
         ]);
 
         $validatedData['password'] = $user->password;
 
         $user->update($validatedData);
-        DB::table('model_has_roles')->where('model_id',$user->id)->delete();
-    
+        DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+
         $user->assignRole($request->roles);
-    
+
         return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+            ->with('success', 'User updated successfully');
     }
 
     /**
@@ -121,6 +125,42 @@ class RegisteredUserController extends Controller
     {
         $user->delete();
         return redirect()->route('users.index')
-        ->with('success','User deleted successfully');
+            ->with('success', 'User deleted successfully');
+    }
+
+    public function updateUser(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' =>  ['required', 'email', Rule::unique('users')->ignore($user->id)]
+        ]);
+
+        if ($request->email != $user->email) {
+            $validatedData['email'] = $request->email;
+        }
+
+        if ($request->file('foto_profil')) {
+            if ($user->foto_profil) {
+                Storage::delete($user->foto_profil);
+            }
+            $validatedData['foto_profil'] = $request->file('foto_profil')->store('foto_profil');
+        }
+
+        dd($validatedData);
+        $user->update($validatedData);
+
+        if ($request->email != $user->email) {
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect('/');
+        }
+
+        return redirect()->back();
+
     }
 }

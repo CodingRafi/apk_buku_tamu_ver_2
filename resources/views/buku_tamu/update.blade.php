@@ -69,7 +69,7 @@
                                             <div class="row">
                                                 @if ($data->image)
                                                     <div class="col-md-4">
-                                                        <img src="/storage/{{ $data->image }}" alt="" class="mt-2">
+                                                        <img src="/image/{{ $data->image }}" alt="" class="mt-2">
                                                         <label class="mt-2">Foto Tersimpan</label>
                                                     </div>
                                                 @endif

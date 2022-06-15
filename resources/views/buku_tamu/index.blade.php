@@ -7,7 +7,7 @@
             background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath id='a' d='m1.532 12 6.182-6-6.182-6L0 1.487 4.65 6 0 10.513z'/%3E%3C/defs%3E%3Cg transform='translate%282.571%29' fill='none' fill-rule='evenodd'%3E%3Cuse fill='%23435971' xlink:href='%23a'/%3E%3Cuse fill-opacity='.1' fill='%23566a7f' xlink:href='%23a'/%3E%3C/g%3E%3C/svg%3E%0A") !important;
         }
 
-        .swal2-container{
+        .swal2-container {
             z-index: 9999 !important;
         }
     </style>
@@ -27,16 +27,21 @@
                             <h5 class="card-header">Buku Tamu</h5>
                         </div>
                         <div class="col-md-4 d-flex justify-center align-items-center p-0">
-                            <a href="/buku-tamu/create" class="btn btn-primary tombol-buat-user" style="margin-right: 10px">Create Tamu</a>
-                            <a href="/excel" class="btn btn-primary tombol-buat-user">Export Excel</a>
+                            @can('add_buku_tamu')
+                                <a href="/buku-tamu/create" class="btn btn-primary tombol-buat-user"
+                                    style="margin-right: 10px">Create Tamu</a>
+                            @endcan
+                            @can('buku_tamu_ekspor')
+                                <a href="/excel" class="btn btn-primary tombol-buat-user">Export Excel</a>
+                            @endcan
                         </div>
                     </div>
                 </div>
                 <div class="container" style="overflow: auto;min-height: 65vh">
-                    <div id="accordionIcon" class="accordion mt-3 accordion-without-arrow">
+                    <div id="accordionIcon" class="accordion accordion-without-arrow">
                         <div class="table-responsive">
                             @if (count($datatamu) > 0)
-                                <table class="mt-3 table-hover table" style="font-size: 15px;text-align:center;">
+                                <table class="table-hover table" style="font-size: 15px;text-align:center;">
                                     <thead class="">
                                         <tr>
                                             <th class="col-1">#</th>
@@ -45,7 +50,9 @@
                                             <th class="col-2">Instansi</th>
                                             <th class="col-2">Alamat</th>
                                             <th class="col-1">Tanda Tangan</th>
-                                            <th class="col-3">Action</th>
+                                            @can('edit_buku_tamu', 'delete_buku_tamu')
+                                                <th>Actions</th>
+                                            @endcan
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,9 +61,9 @@
                                                 <td>{{ ($datatamu->currentpage() - 1) * $datatamu->perpage() + $loop->index + 1 }}
                                                 </td>
                                                 <td>
-                                                    <a href="storage/{{ $dt->image }}"
+                                                    <a href="image/{{ $dt->image }}"
                                                         data-fancybox="gallery{{ $no }}">
-                                                        <img src="storage/{{ $dt->image }}" alt=""
+                                                        <img src="image/{{ $dt->image }}" alt=""
                                                             style="object-fit: cover; width: 80px; aspect-ratio: 1/1;margin: 10px;box-shadow: 0 3px 6px #0000001c;" />
                                                     </a>
                                                     {{-- <img src="" style="width: 30px;"> --}}
@@ -76,18 +83,23 @@
                                                 <td class="">
                                                     <div class="container-fluid p-0 d-flex justify-content-center align-items-center"
                                                         style="height: 100%">
-                                                        <a href="/buku-tamu/{{ $dt->id }}/edit"
-                                                            class="btn btn-warning text-white" style="margin-right: 10px;">Edit</a>
-                                                        <form action="/buku-tamu/{{ $dt->id }}"
-                                                            id="delete{{ $dt->id }}" method="POST"
-                                                            class="d-block">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <a href="#" data-id={{ $dt->id }}
-                                                                class="btn btn-danger swal-confrim">
-                                                                Hapus
-                                                            </a>
-                                                        </form>
+                                                        @can('edit_buku_tamu')
+                                                            <a href="/buku-tamu/{{ $dt->id }}/edit"
+                                                                class="btn btn-warning text-white"
+                                                                style="margin-right: 10px;">Edit</a>
+                                                        @endcan
+                                                        @can('delete_buku_tamu')
+                                                            <form action="/buku-tamu/{{ $dt->id }}"
+                                                                id="delete{{ $dt->id }}" method="POST"
+                                                                class="d-block">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <a href="#" data-id={{ $dt->id }}
+                                                                    class="btn btn-danger swal-confrim">
+                                                                    Hapus
+                                                                </a>
+                                                            </form>
+                                                        @endcan
                                                     </div>
                                                 </td>
                                             </tr>
@@ -95,11 +107,11 @@
                                     </tbody>
                                 </table>
                             @else
-                            <div class="container-fluid p-0 d-flex justify-content-center align-items-center">
-                                <div class="alert alert-info text-center" role="alert" style="width: 50%;">
-                                    Maaf, tidak ada data ditemukan 
+                                <div class="container-fluid p-0 d-flex justify-content-center align-items-center">
+                                    <div class="alert alert-info text-center" role="alert" style="width: 50%;">
+                                        Maaf, tidak ada data ditemukan
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                         </div>
 

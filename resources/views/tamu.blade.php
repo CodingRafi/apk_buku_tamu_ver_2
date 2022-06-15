@@ -29,7 +29,7 @@
                 <h5 class="card-title mt-3">Selamat Datang</h5>
                 <h5 class="card-title" style="font-size: 14px;font-weight: 400;">Ekspose Produk Kreatif SMK bidang
                     Kelautan Perikanan Teknologi Informasi dan Komunikasi (KPTK)</h5>
-                <a href="/create-data" class="btn btn-primary btn-lg btn-block"
+                <a href="/create-data?home=pengunjung" class="btn btn-primary btn-lg btn-block"
                     style="font-size: 13px;height: 37px;margin-top: 22px;">Buat data pengunjung</a>
             </div>
         </div>

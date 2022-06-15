@@ -61,8 +61,12 @@
           <!-- Register -->
           <div class="card">
             <div class="card-body">
-              <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-              <p class="mb-4">Please sign-in to your account and start the adventure</p>
+              <div class="container-fluid p-0 d-flex justify-content-center">
+                <img src="/img/logoStarbhakForApp.png" alt="" style="width: 5rem;" class="mb-2">
+              </div>
+              
+              <h4 class="mb-2 text-center">Welcome to SMK Taruna Bhakti!</h4>
+              <p class="mb-2 text-center">Please sign-in to your account</p>
 
               <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
                 @csrf

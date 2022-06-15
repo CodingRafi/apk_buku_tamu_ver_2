@@ -110,7 +110,7 @@ class RoleController extends Controller
         ]);
 
         $role = Role::find($id);
-        //? kenapa tidak pakai updaye karena yang kita ubah hanya nama rolenya saja, dan untuk coloum yang lain seperti guard_name kan tidak ada berarti jika tidak ada nanti ketika di update akan error 
+        //? kenapa tidak pakai update karena yang kita ubah hanya nama rolenya saja, dan untuk coloum yang lain seperti guard_name kan tidak ada berarti jika tidak ada nanti ketika di update akan error 
         $role->name = $request->name;
         $role->save();
 
