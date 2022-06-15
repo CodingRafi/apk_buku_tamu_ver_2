@@ -6,6 +6,10 @@
         .accordion.accordion-without-arrow .accordion-button::after {
             background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath id='a' d='m1.532 12 6.182-6-6.182-6L0 1.487 4.65 6 0 10.513z'/%3E%3C/defs%3E%3Cg transform='translate%282.571%29' fill='none' fill-rule='evenodd'%3E%3Cuse fill='%23435971' xlink:href='%23a'/%3E%3Cuse fill-opacity='.1' fill='%23566a7f' xlink:href='%23a'/%3E%3C/g%3E%3C/svg%3E%0A") !important;
         }
+
+        .swal2-container{
+            z-index: 9999 !important;
+        }
     </style>
 @endsection
 
@@ -17,7 +21,7 @@
         <div class="container-xxl flex-grow-1 container-p-y">
 
             <div class="card">
-                <div class="container-fluid">
+                <div class="container-fluid p-0">
                     <div class="row">
                         <div class="col-md-10">
                             <h5 class="card-header">Buku Tamu</h5>
@@ -27,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container" style="overflow: auto;">
+                <div class="container" style="overflow: auto;min-height: 65vh">
                     <div id="accordionIcon" class="accordion mt-3 accordion-without-arrow">
                         <div class="table-responsive">
                             @if (count($datatamu) > 0)
@@ -72,7 +76,7 @@
                                                     <div class="container-fluid p-0 d-flex justify-content-center align-items-center"
                                                         style="height: 100%">
                                                         <a href="/buku-tamu/{{ $dt->id }}/edit"
-                                                            class="btn btn-warning text-white mr-2">Edit</a>
+                                                            class="btn btn-warning text-white" style="margin-right: 10px;">Edit</a>
                                                         <form action="/buku-tamu/{{ $dt->id }}"
                                                             id="delete{{ $dt->id }}" method="POST"
                                                             class="d-block">
@@ -90,9 +94,11 @@
                                     </tbody>
                                 </table>
                             @else
-                                <div class="alert alert-info text-center" role="alert">
-                                    Data tidak ditemukan
+                            <div class="container-fluid p-0 d-flex justify-content-center align-items-center">
+                                <div class="alert alert-info text-center" role="alert" style="width: 50%;">
+                                    Maaf, tidak ada data ditemukan 
                                 </div>
+                            </div>
                             @endif
                         </div>
 
@@ -110,4 +116,38 @@
 
 @section('tambahanjs')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script>
+        $(".swal-confrim").click(function(e) {
+            id = e.target.dataset.id;
+            Swal.fire({
+                title: 'Apakah anda yakin ingin hapus data ini?',
+                text: "Data yang terhapus tidak dapat dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(`#delete${id}`).submit();
+                } else {
+
+                }
+
+            })
+
+        });
+    </script>
+
+    <script>
+        const alertNontifikasi = document.querySelector('.alert-nontifikasi');
+        const myTimeout = setTimeout(myGreeting, 5000);
+
+        function myGreeting() {
+            if (alertNontifikasi) {
+                alertNontifikasi.style.display = 'none';
+            }
+        }
+    </script>
 @endsection
