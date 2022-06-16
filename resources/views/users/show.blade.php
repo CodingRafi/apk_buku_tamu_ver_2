@@ -16,16 +16,23 @@
                                 <div class="col-3">
                                     <div class="card-body d-flex justify-content-center" style="flex-direction: column">
                                         <div class="d-flex justify-content-center gap-4">
-                                            <img src="{{ Auth::user()->foto_profil }}" alt="user-avatar" class="d-block rounded"
-                                                height="100" width="100" id="uploadedAvatar" />
+                                            @if (Auth::user()->foto_profil == '/img/avatar-1.png')
+                                                <img src="{{ Auth::user()->foto_profil }}" alt="user-avatar"
+                                                    class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                                            @else
+                                                <img src="{{ asset('storage/' . Auth::user()->foto_profil) }}" alt="user-avatar"
+                                                    class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                                            @endif
                                         </div>
-                                        <a href="#" class="btn btn-primary mt-3">Ubah Password</a>
+                                        <a href="/ubah-password" class="btn btn-primary mt-3">Ubah Password</a>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="card-body">
-                                        <form id="formAccountSettings" method="POST" enctype="multipart/form-data" action="/update-user">
+                                        <form id="formAccountSettings" method="POST" enctype="multipart/form-data"
+                                            action="/update-user">
                                             @csrf
+                                            @method('patch')
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="name" class="form-label">Name</label>
@@ -41,8 +48,8 @@
                                                     <label for="foto" class="form-label">Profil Picture</label>
                                                     <img src="" alt="" style="width: 7rem;display: none;"
                                                         class="form-control pp-preview">
-                                                    <input class="form-control mt-3 input-pp" type="file" name="foto_profil" id="foto"
-                                                         accept="image/*" onchange="previewImageUpdate();" />
+                                                    <input class="form-control mt-3 input-pp" type="file" name="foto_profil"
+                                                        id="foto" accept="image/*" onchange="previewImageUpdate();" />
                                                 </div>
                                             </div>
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">

@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', RegisteredUserController::class);
     Route::resource('buku-tamu', BukuTamuController::class);
     Route::get('/excel', [BukuTamuController::class, 'ekspor']);
-    Route::post('/update-user', [RegisteredUserController::class, 'updateUser']);
+    Route::patch('/update-user', [RegisteredUserController::class, 'updateUser']);
 });
 
 require __DIR__.'/auth.php';

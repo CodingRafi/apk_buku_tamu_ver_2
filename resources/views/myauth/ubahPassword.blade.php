@@ -27,12 +27,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Forgot Password Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Reset Password</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,14 +73,12 @@
           <!-- Forgot Password -->
           <div class="card">
             <div class="card-body">
-              <h4 class="mb-2">Forgot Password? 🔒</h4>
-              <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
               <!-- Session Status -->
                 <x-auth-session-status class="mb-4" style="color: red" :status="session('status')" />
 
                 <!-- Validation Errors -->
-                <x-auth-validation-errors class="mb-4" :errors="$errors" />
-              <form id="formAuthentication" class="mb-3" action="{{ route('password.email') }}" method="POST">
+                <x-auth-validation-errors class="mb-4 text-danger" :errors="$errors" />
+              <form id="formAuthentication" class="mb-3" action="{{ route('password.updateReset') }}" method="POST">
                   @csrf
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
@@ -90,17 +88,43 @@
                     id="email"
                     name="email"
                     placeholder="Enter your email"
-                    value="{{ old('email') }}"
+                    value="{{ Auth::user()->email, old('email') }}"
                     autofocus
                     required
                   />
                 </div>
-                <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your Password"
+                    value="{{ old('password') }}"
+                    autofocus
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="password_confirmation" class="form-label">Confirm Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password_confirmation"
+                    name="password_confirmation"
+                    placeholder="Enter your Confirm Password"
+                    value="{{ old('password_confirmation') }}"
+                    autofocus
+                    required
+                  />
+                </div>
+                <button class="btn btn-primary d-grid w-100">Reset Password</button>
               </form>
               <div class="text-center">
-                <a href="/login" class="d-flex align-items-center justify-content-center">
+                <a href="/users/{{ Auth::user()->id }}" class="d-flex align-items-center justify-content-center">
                   <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
-                  Back to login
+                  Back to Profile
                 </a>
               </div>
             </div>

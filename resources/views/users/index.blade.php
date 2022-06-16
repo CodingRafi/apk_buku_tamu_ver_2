@@ -1,5 +1,13 @@
 @extends('mylayouts.main')
 
+@section('tambahancss')
+    <style>
+        .swal2-container {
+            z-index: 9999 !important;
+        }
+    </style>
+@endsection
+
 @section('container')
     {{-- @dd('oke') --}}
     <div class="content-wrapper">
@@ -58,18 +66,18 @@
                                                 @endcan
                                                 @can('delete_users')
                                                     <form action="{{ route('users.destroy', $user->id) }}" method="post"
-                                                        class="d-inline">
+                                                        class="d-inline" id="delete{{ $user->id }}">
                                                         @csrf
                                                         @method('delete')
-                                                        <button type="submit" class="btn btn-danger"
-                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')" {{ ($user->hasRole('admin')) ? 'disabled' : '' }}>Delete</button>
+                                                        <a href="#" data-id={{ $user->id }}
+                                                            class="btn btn-danger swal-confrim">
+                                                            Hapus
+                                                        </a>
                                                     </form>
                                                 @endcan
                                             </td>
                                         @endcan
                                     </tr>
-                                    @if ($user->getRoleNames()[0] != 'admin')
-                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -186,5 +194,28 @@
             modal.style.display = 'none';
             modal.style.background = 'none';
         })
+    </script>
+    <script>
+        $(".swal-confrim").click(function(e) {
+            id = e.target.dataset.id;
+            Swal.fire({
+                title: 'Apakah anda yakin ingin hapus data ini?',
+                text: "Data yang terhapus tidak dapat dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(`#delete${id}`).submit();
+                } else {
+
+                }
+
+            })
+
+        });
     </script>
 @endsection

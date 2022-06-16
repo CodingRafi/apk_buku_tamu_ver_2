@@ -20,7 +20,7 @@
                                     <div class="col-md-10">
                                         <input class="form-control @error('name') is-invalid @enderror" type="text"
                                             value="{{ $user->name, old('name') }}" id="html5-text-input"
-                                            placeholder="Name User" name="name"/>
+                                            placeholder="Name User" name="name" />
                                         @error('name')
                                             <div class="invalid-feedback d-block">
                                                 {{ $message }}
@@ -33,7 +33,7 @@
                                     <div class="col-md-10">
                                         <input class="form-control @error('name') is-invalid @enderror" type="email"
                                             placeholder="john@example.com" id="html5-email-input"
-                                            value="{{ $user->email, old('email') }}" name="email"/>
+                                            value="{{ $user->email, old('email') }}" name="email" />
                                         @error('email')
                                             <div class="invalid-feedback d-block">
                                                 {{ $message }}
@@ -44,13 +44,17 @@
                                 <div class="mb-3 row">
                                     <label for="exampleDataList" class="col-form-label col-md-2">Role</label>
                                     <div class="col-md-10">
-                                        
+
                                         <select name="roles" id="datalistOptions" class="form-select">
                                             @foreach ($roles as $role)
                                                 @if ($role !== 'admin')
-                                                    @if ($role == $userRole[0]['name'])
-                                                        <option value="{{ $role }}" selected>{{ $role }}
-                                                        </option>
+                                                    @if (count($userRole) > 0)
+                                                        @if ($role == $userRole[0]['name'])
+                                                            <option value="{{ $role }}" selected>{{ $role }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $role }}">{{ $role }}</option>
+                                                        @endif
                                                     @else
                                                         <option value="{{ $role }}">{{ $role }}</option>
                                                     @endif
@@ -61,7 +65,7 @@
                                 </div>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
-                                  </div>
+                                </div>
                             </div>
                         </div>
 
@@ -74,4 +78,3 @@
         <div class="content-backdrop fade"></div>
     </div>
 @endsection
-

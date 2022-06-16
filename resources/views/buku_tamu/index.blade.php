@@ -27,10 +27,8 @@
                             <h5 class="card-header">Buku Tamu</h5>
                         </div>
                         <div class="col-md-4 d-flex justify-center align-items-center p-0">
-                            @can('add_buku_tamu')
-                                <a href="/buku-tamu/create" class="btn btn-primary tombol-buat-user"
-                                    style="margin-right: 10px">Create Tamu</a>
-                            @endcan
+                            <a href="/buku-tamu/create" class="btn btn-primary tombol-buat-user"
+                                style="margin-right: 10px">Create Tamu</a>
                             @can('buku_tamu_ekspor')
                                 <a href="/excel" class="btn btn-primary tombol-buat-user">Export Excel</a>
                             @endcan

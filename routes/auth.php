@@ -34,6 +34,12 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('ubah-password', [NewPasswordController::class, 'ubahPassword'])
+                ->name('password.ubah');
+
+    Route::post('reset-password-login', [NewPasswordController::class, 'resetPassword'])
+                ->name('password.updateReset');
+
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 

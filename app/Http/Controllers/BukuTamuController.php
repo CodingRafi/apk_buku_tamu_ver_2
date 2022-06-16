@@ -113,14 +113,14 @@ class BukuTamuController extends Controller
             if ($bukuTamu->image) {
                 File::delete('image/' . $bukuTamu->image);
             }
-            $validatedData['image'] = DataTamu::create_image($request->image);
+            $validatedData['image'] = BukuTamu::create_image($request->image);
         }
 
         if ($request->signed) {
             if ($bukuTamu->signed) {
                 File::delete('tandatangan/' . $bukuTamu->signed);
             }
-            $validatedData['signed'] = DataTamu::create_sinature($request->signed);
+            $validatedData['signed'] = BukuTamu::create_sinature($request->signed);
         }
 
         $bukuTamu->update($validatedData);

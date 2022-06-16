@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $this->validate($request, [
+        $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|max:255',
@@ -73,7 +73,11 @@ class RegisteredUserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show');
+        if ($user->id == Auth::user()->id) {
+            return view('users.show');
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -147,8 +151,7 @@ class RegisteredUserController extends Controller
             $validatedData['foto_profil'] = $request->file('foto_profil')->store('foto_profil');
         }
 
-        dd($validatedData);
-        $user->update($validatedData);
+        DB::table('users')->where('id', Auth::user()->id)->update($validatedData);
 
         if ($request->email != $user->email) {
             Auth::guard('web')->logout();
