@@ -70,7 +70,7 @@
                                                         @csrf
                                                         @method('delete')
                                                         <a href="#" data-id={{ $user->id }}
-                                                            class="btn btn-danger swal-confrim">
+                                                            class="btn btn-danger swal-confrim {{ ($user->hasRole('admin')) ? 'disabled' : '' }}">
                                                             Hapus
                                                         </a>
                                                     </form>
@@ -137,9 +137,9 @@
                                 <div class="mb-3 row">
                                     <label for="html5-password-input" class="col-md-3 col-form-label">Password</label>
                                     <div class="col-md-9">
-                                        <input class="form-control @error('password') is-invalid @enderror" type="password"
-                                            placeholder="Password" id="html5-password-input" name="password" />
-                                        @error('email')
+                                        <input class="form-control @error('password') is-invalid @enderror" type="text"
+                                            placeholder="Password" id="html5-password-input" name="password" value="12345678" disabled/>
+                                        @error('password')
                                             <div class="invalid-feedback d-block">
                                                 {{ $message }}
                                             </div>
@@ -218,4 +218,5 @@
 
         });
     </script>
+    
 @endsection

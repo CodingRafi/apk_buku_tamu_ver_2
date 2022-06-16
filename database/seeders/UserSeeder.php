@@ -37,17 +37,17 @@ class UserSeeder extends Seeder
 
 
         //? Membuat role Teacher 
-        $rolePengawas = Role::create([
-            'name' => 'pengawas',
-            'guard_name' => 'web'
-        ]);
+        // $rolePengawas = Role::create([
+        //     'name' => 'pengawas',
+        //     'guard_name' => 'web'
+        // ]);
 
-        $izinpengawases = [];
-        $resultPengawas = array_map(function($izinPengawas){
-            return $izinPengawas;
-        }, $izinpengawases);
+        // $izinpengawases = [];
+        // $resultPengawas = array_map(function($izinPengawas){
+        //     return $izinPengawas;
+        // }, $izinpengawases);
 
-        $rolePengawas->syncPermissions($resultPengawas);
+        // $rolePengawas->syncPermissions($resultPengawas);
 
     }
 }

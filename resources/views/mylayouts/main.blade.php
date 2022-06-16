@@ -69,6 +69,10 @@
             scrollbar-width: none;
             /* Firefox */
         }
+
+        body{
+            overflow-x: none;
+        }
     </style>
 </head>
 

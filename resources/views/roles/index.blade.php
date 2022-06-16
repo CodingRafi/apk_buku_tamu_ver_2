@@ -69,7 +69,7 @@
                                         <div class="container-fluid">
                                             <div class="row flex-wrap">
                                                 @foreach ($rolePermissions[$key] as $rolePermission)
-                                                    <div class="col-md-3 mb-2 mt-2">{{ $rolePermission->name }}</div>
+                                                    <div class="col-md-3 mb-2 mt-2">{{ str_replace("_", " ", $rolePermission->name) }}</div>
                                                 @endforeach
                                             </div>
                                         </div>

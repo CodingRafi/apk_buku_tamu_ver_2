@@ -51,11 +51,10 @@ class RegisteredUserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|max:255',
             'roles' => 'required',
         ]);
 
-        $validatedData['password'] = Hash::make($request->password);
+        $validatedData['password'] = Hash::make('12345678');
         $validatedData['foto_profil'] = '/img/avatar-1.png';
 
         $user = User::create($validatedData);
