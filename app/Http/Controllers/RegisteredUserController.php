@@ -72,11 +72,7 @@ class RegisteredUserController extends Controller
      */
     public function show(User $user)
     {
-        if ($user->id == Auth::user()->id) {
-            return view('users.show');
-        }else{
-            abort(403);
-        }
+        return view('users.show');
     }
 
     /**

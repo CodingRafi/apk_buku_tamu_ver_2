@@ -3,12 +3,12 @@
 @section('tambahancss')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css">
     <style>
-        .accordion.accordion-without-arrow .accordion-button::after {
-            background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath id='a' d='m1.532 12 6.182-6-6.182-6L0 1.487 4.65 6 0 10.513z'/%3E%3C/defs%3E%3Cg transform='translate%282.571%29' fill='none' fill-rule='evenodd'%3E%3Cuse fill='%23435971' xlink:href='%23a'/%3E%3Cuse fill-opacity='.1' fill='%23566a7f' xlink:href='%23a'/%3E%3C/g%3E%3C/svg%3E%0A") !important;
-        }
-
         .swal2-container {
             z-index: 9999 !important;
+        }
+
+        .dropdown-toggle::after{
+            display: none;
         }
     </style>
 @endsection
@@ -46,6 +46,7 @@
                                             <th class="col-1">Foto</th>
                                             <th class="col-2">Nama Tamu</th>
                                             <th class="col-2">Instansi</th>
+                                            <th class="col-2">Kategori</th>
                                             <th class="col-2">Alamat</th>
                                             <th class="col-1">Tanda Tangan</th>
                                             @can('edit_buku_tamu', 'delete_buku_tamu')
@@ -68,6 +69,7 @@
                                                 </td>
                                                 <td>{{ $dt->nama }}</td>
                                                 <td>{{ $dt->instansi }}</td>
+                                                <td>{{ $dt->kategori == 'khusus' ? 'Tamu Khusus' : 'Tamu Umum' }}</td>
                                                 <td>{{ $dt->alamat }}</td>
                                                 <td>
                                                     <a href="tandaTangan/{{ $dt->signed }}"
@@ -79,25 +81,33 @@
                                                     {{-- <img src="" style="width: 90px;"> --}}
                                                 </td>
                                                 <td class="">
-                                                    <div class="container-fluid p-0 d-flex justify-content-center align-items-center"
-                                                        style="height: 100%">
-                                                        @can('edit_buku_tamu')
-                                                            <a href="/buku-tamu/{{ $dt->id }}/edit"
-                                                                class="btn btn-warning text-white"
-                                                                style="margin-right: 10px;">Edit</a>
-                                                        @endcan
-                                                        @can('delete_buku_tamu')
-                                                            <form action="/buku-tamu/{{ $dt->id }}"
-                                                                id="delete{{ $dt->id }}" method="POST"
-                                                                class="d-block">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <a href="#" data-id={{ $dt->id }}
-                                                                    class="btn btn-danger swal-confrim">
-                                                                    Hapus
-                                                                </a>
-                                                            </form>
-                                                        @endcan
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton1" data-bs-toggle="dropdown">:
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                            <li>
+                                                                @can('edit_buku_tamu')
+                                                                    <a href="/buku-tamu/{{ $dt->id }}/edit"
+                                                                        class="dropdown-item"
+                                                                        style="margin-right: 10px;">Edit</a>
+                                                                @endcan
+                                                            </li>
+                                                            <li>
+                                                                @can('delete_buku_tamu')
+                                                                    <form action="/buku-tamu/{{ $dt->id }}"
+                                                                        id="delete{{ $dt->id }}" method="POST"
+                                                                        class="d-block">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        <a href="#" data-id={{ $dt->id }}
+                                                                            class="dropdown-item swal-confrim">
+                                                                            Hapus
+                                                                        </a>
+                                                                    </form>
+                                                                @endcan
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -105,7 +115,8 @@
                                     </tbody>
                                 </table>
                             @else
-                                <div class="container-fluid p-0 d-flex justify-content-center align-items-center">
+                                <div class="container-fluid p-0 d-flex justify-content-center align-items-center"
+                                    style="height: 10rem;">
                                     <div class="alert alert-info text-center" role="alert" style="width: 50%;">
                                         Maaf, tidak ada data ditemukan
                                     </div>

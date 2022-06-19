@@ -31,8 +31,9 @@
                                 <div class="mb-3 row">
                                     <div class="form-group">
                                         <label for="nama">Nama Tamu</label>
-                                        <input type="text" class="mt-2 form-control @error('nama') is-invalid @enderror" id="nama"
-                                            name="nama" value="{{ old('nama') }}" placeholder="Nama tamu yang berkunjung">
+                                        <input type="text" class="mt-2 form-control @error('nama') is-invalid @enderror"
+                                            id="nama" name="nama" value="{{ old('nama') }}"
+                                            placeholder="Nama tamu yang berkunjung">
 
                                         @error('nama')
                                             <div class="invalid-feedback">
@@ -42,8 +43,10 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="instansi" class="mt-2">Instansi</label>
-                                        <input type="text" class="form-control mt-2 @error('instansi') is-invalid @enderror"
-                                            id="instansi" name="instansi" placeholder="Instansi Tamu yang berkunjung">
+                                        <input type="text"
+                                            class="form-control mt-2 @error('instansi') is-invalid @enderror" id="instansi"
+                                            name="instansi" placeholder="Instansi Tamu yang berkunjung"
+                                            value="{{ old('instansi') }}">
                                         @error('instansi')
                                             <div class="invalid-feedback">
                                                 The instansi field is required.
@@ -51,9 +54,24 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                        <label for="kategori" class="mt-2">Kategori</label>
+                                        <select class="form-select mt-2 @error('instansi') is-invalid @enderror"
+                                            aria-label="Default select example" name="kategori" required>
+                                            <option value="umum" {{ old('kategori') == 'umum' ? 'selected' : '' }}>Tamu
+                                                Umum</option>
+                                            <option value="khusus" {{ old('kategori') == 'khusus' ? 'selected' : '' }}>
+                                                Tamu Khusus</option>
+                                        </select>
+                                        @error('kategori')
+                                            <div class="invalid-feedback">
+                                                The kategori field is required.
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
                                         <label for="alamat" class="mt-2">Alamat</label>
                                         <textarea class="form-control mt-2 @error('alamat') is-invalid @enderror" id="alamat" rows="5" name="alamat"
-                                            value="{{ old('alamat') }}" placeholder="Alamat tamu yang berkunjung"></textarea>
+                                            value="{{ old('alamat') }}" placeholder="Alamat tamu yang berkunjung">{{ old('alamat') }}</textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">
                                                 The alamat field is required.
@@ -100,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
+                                    <button class="btn btn-primary" type="submit">Simpan</button>
                                 </div>
                             </div>
                         </div>

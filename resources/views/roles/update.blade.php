@@ -11,16 +11,15 @@
                     @csrf
                     @method('patch')
                     <div class="col-xl-12">
-                        <!-- HTML5 Inputs -->
                         <div class="card mb-4">
                             <h5 class="card-header">Ubah Role</h5>
                             <div class="card-body">
                                 <div class="mb-3 row">
                                     <label for="html5-text-input" class="col-md-2 col-form-label">Name Role</label>
                                     <div class="col-md-10">
-                                        <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                            value="{{ $role->name, old('name') }}" id="html5-text-input"
-                                            placeholder="Name Role" name="name" />
+                                        <input style="text-transform: capitalize;" class="form-control @error('name') is-invalid @enderror" type="text"
+                                            value="{{ str_replace("_", " ", $role->name), old('name') }}" id="html5-text-input"
+                                            placeholder="Name Role" name="name"  />
                                         @error('name')
                                             <div class="invalid-feedback d-block">
                                                 {{ $message }}

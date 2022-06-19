@@ -48,6 +48,24 @@ class BukuTamu extends Model
     }
 
     public static function excel(){
-        return (new FastExcel(BukuTamu::all()))->download('data.xlsx');
+        $datas = [];
+        
+        foreach (BukuTamu::all() as $key => $data) {
+            $datas[] = [
+                'No' => $key + 1,
+                'Nama' => $data->nama,
+                'Instansi' => $data->instansi,
+                'Alamat' => $data->alamat,
+                'Kategori' => ($data->kategori == 'khusus') ? 'Tamu Khusus' : 'Tamu Umum',
+                'Foto' => $data->image,
+                'Tanda Tangan' => $data->signed,
+                'Created_at' => \Carbon\Carbon::parse($data->created_at)->format('d, M Y H:i'),
+                'Updated_at' => \Carbon\Carbon::parse($data->updated_at)->format('d, M Y H:i')
+            ];
+        }
+
+        $datas = collect($datas);
+
+        return (new FastExcel($datas))->download('data.xlsx');
     }
 }

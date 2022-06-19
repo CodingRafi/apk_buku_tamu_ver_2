@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="/assets/"
-    data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
+    data-assets-path="/assets/" data-template="vertical-menu-template-free">
 
 <head>
     <meta charset="utf-8" />
@@ -70,7 +70,7 @@
             /* Firefox */
         }
 
-        body{
+        body {
             overflow-x: none;
         }
     </style>
@@ -97,6 +97,14 @@
         <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible alert-nontifikasi" role="alert"
+            style="position: fixed;right: 2rem;bottom: 1rem;">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
@@ -128,6 +136,20 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     @yield('tambahanjs')
+
+    @if (session('success'))
+        <script>
+            const alertNontifikasi = document.querySelector('.alert-nontifikasi');
+            const myTimeout = setTimeout(myGreeting, 5000);
+
+            function myGreeting() {
+                if (alertNontifikasi) {
+                    alertNontifikasi.classList.remove('show');
+                    alertNontifikasi.style.display = 'none';
+                }
+            }
+        </script>
+    @endif
 
 </body>
 

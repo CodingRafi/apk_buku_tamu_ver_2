@@ -35,19 +35,5 @@ class UserSeeder extends Seeder
 
         $admin->assignRole([$role->id]);
 
-
-        //? Membuat role Teacher 
-        // $rolePengawas = Role::create([
-        //     'name' => 'pengawas',
-        //     'guard_name' => 'web'
-        // ]);
-
-        // $izinpengawases = [];
-        // $resultPengawas = array_map(function($izinPengawas){
-        //     return $izinPengawas;
-        // }, $izinpengawases);
-
-        // $rolePengawas->syncPermissions($resultPengawas);
-
     }
 }

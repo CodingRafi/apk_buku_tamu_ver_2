@@ -24,6 +24,7 @@ class PermissionTableSeeder extends Seeder
             'view_roles',
             'add_roles',
             'edit_roles',
+            'delete_roles',
 
             'view_buku_tamu',
             'edit_buku_tamu',

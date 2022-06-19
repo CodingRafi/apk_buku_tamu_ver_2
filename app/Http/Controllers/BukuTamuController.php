@@ -54,6 +54,7 @@ class BukuTamuController extends Controller
             'nama' => 'required',
             'instansi' => 'required',
             'alamat' => 'required',
+            'kategori' => 'required',
             'image' => 'required',
             'signed' => 'required',
         ]);
@@ -106,6 +107,7 @@ class BukuTamuController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required',
             'instansi' => 'required',
+            'kategori' => 'required',
             'alamat' => 'required',
         ]);
 

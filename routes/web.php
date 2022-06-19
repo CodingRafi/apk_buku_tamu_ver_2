@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', RegisteredUserController::class);
     Route::resource('buku-tamu', BukuTamuController::class);
     Route::get('/excel', [BukuTamuController::class, 'ekspor']);
+    Route::get('/account', [RegisteredUserController::class, 'show']);
     Route::patch('/update-user', [RegisteredUserController::class, 'updateUser']);
 });
 

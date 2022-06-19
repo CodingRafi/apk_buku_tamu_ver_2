@@ -2,10 +2,9 @@
 
 @section('tambahancss')
     <style>
-        .accordion.accordion-without-arrow .accordion-button::after {
-            background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath id='a' d='m1.532 12 6.182-6-6.182-6L0 1.487 4.65 6 0 10.513z'/%3E%3C/defs%3E%3Cg transform='translate%282.571%29' fill='none' fill-rule='evenodd'%3E%3Cuse fill='%23435971' xlink:href='%23a'/%3E%3Cuse fill-opacity='.1' fill='%23566a7f' xlink:href='%23a'/%3E%3C/g%3E%3C/svg%3E%0A") !important;
+        .swal2-container {
+            z-index: 9999 !important;
         }
-
     </style>
 @endsection
 
@@ -20,7 +19,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-10">
-                            <h5 class="card-header">Users</h5>
+                            <h5 class="card-header">Roles</h5>
                         </div>
                         <div class="col-md-2 d-flex justify-center align-items-center">
                             @can('add_roles')
@@ -39,8 +38,9 @@
                                 <h2 class="accordion-header text-body d-flex justify-content-between" id="accordionIconOne">
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
                                         data-bs-target="#accordionIcon-{{ $loop->iteration }}"
-                                        aria-controls="accordionIcon-{{ $loop->iteration }}">
-                                        {{ $loop->iteration }}. Role {{ $role->name }}
+                                        aria-controls="accordionIcon-{{ $loop->iteration }}" style="text-transform: capitalize;">
+                                        {{ $loop->iteration }}. Role {{ str_replace("_", " ", $role->name) }}
+                                        <i class='bx bx-chevron-right' style="position: absolute;right: 1rem;font-size: 1.7rem;"></i> 
                                     </button>
                                 </h2>
 
@@ -49,17 +49,42 @@
                                     <div class="accordion-body">
                                         <div class="container-fluid">
                                             <div class="row">
-                                                <div class="col-md-10">
-                                                    <h5 class="card-header ps-0">Hak akses untuk role {{ $role->name }}</h5>
+                                                <div class="col-md-8">
+                                                    <h5 class="card-header ps-0" style="text-transform: capitalize;">Hak akses untuk role {{ str_replace("_", " ", $role->name) }}
+                                                    </h5>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col d-flex justify-content-center align-items-center">
                                                     @can('edit_roles')
                                                         @if ($role->name == 'admin')
                                                             <a href="{{ route('roles.edit', $role->id) }}"
-                                                                class="btn btn-warning disabled">Update</a>
+                                                                class="btn btn-warning disabled"
+                                                                style="margin-right: 10px;">Update</a>
                                                         @else
                                                             <a href="{{ route('roles.edit', $role->id) }}"
-                                                                class="btn btn-warning">Update</a>
+                                                                class="btn btn-warning" style="margin-right: 10px;">Update</a>
+                                                        @endif
+                                                    @endcan
+                                                    @can('edit_roles')
+                                                        @if ($role->name == 'admin')
+                                                            <form action="{{ route('roles.destroy', $role->id) }}"
+                                                                method="post" id="delete{{ $role->id }}">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <a href="#" data-id={{ $role->id }}
+                                                                    class="btn btn-danger swal-confrim disabled">
+                                                                    Hapus
+                                                                </a>
+                                                            </form>
+                                                        @else
+                                                            <form action="{{ route('roles.destroy', $role->id) }}"
+                                                                method="post" id="delete{{ $role->id }}">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <a href="#" data-id={{ $role->id }}
+                                                                    class="btn btn-danger swal-confrim">
+                                                                    Hapus
+                                                                </a>
+                                                            </form>
                                                         @endif
                                                     @endcan
                                                 </div>
@@ -69,7 +94,8 @@
                                         <div class="container-fluid">
                                             <div class="row flex-wrap">
                                                 @foreach ($rolePermissions[$key] as $rolePermission)
-                                                    <div class="col-md-3 mb-2 mt-2">{{ str_replace("_", " ", $rolePermission->name) }}</div>
+                                                    <div class="col-md-3 mb-2 mt-2">
+                                                        {{ str_replace('_', ' ', $rolePermission->name) }}</div>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -97,8 +123,7 @@
                         <form action="{{ route('roles.store') }}" method="post">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Create Role</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 @csrf
@@ -156,5 +181,28 @@
             modal.style.display = 'none';
             modal.style.background = 'none';
         })
+    </script>
+    <script>
+        $(".swal-confrim").click(function(e) {
+            id = e.target.dataset.id;
+            Swal.fire({
+                title: 'Apakah anda yakin ingin hapus role ini?',
+                text: "Data yang terhapus tidak dapat dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(`#delete${id}`).submit();
+                } else {
+
+                }
+
+            })
+
+        });
     </script>
 @endsection

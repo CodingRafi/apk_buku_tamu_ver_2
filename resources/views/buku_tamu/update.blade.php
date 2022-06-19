@@ -32,8 +32,8 @@
                                 <div class="mb-3 row">
                                     <div class="form-group">
                                         <label for="nama">Nama Tamu</label>
-                                        <input type="text" class="mt-2 form-control @error('nama') is-invalid @enderror" id="nama"
-                                            name="nama" value="{{ $data->nama, old('nama') }}"
+                                        <input type="text" class="mt-2 form-control @error('nama') is-invalid @enderror"
+                                            id="nama" name="nama" value="{{ $data->nama, old('nama') }}"
                                             placeholder="Nama tamu yang berkunjung">
 
                                         @error('nama')
@@ -44,12 +44,28 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="instansi" class="mt-2">Instansi</label>
-                                        <input type="text" class="mt-2 form-control @error('instansi') is-invalid @enderror"
-                                            id="instansi" name="instansi" placeholder="Instansi Tamu yang berkunjung"
+                                        <input type="text"
+                                            class="mt-2 form-control @error('instansi') is-invalid @enderror" id="instansi"
+                                            name="instansi" placeholder="Instansi Tamu yang berkunjung"
                                             value="{{ $data->instansi, old('instansi') }}">
                                         @error('instansi')
                                             <div class="invalid-feedback">
                                                 The instansi field is required.
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kategori">Kategori</label>
+                                        <select class="form-select  @error('instansi') is-invalid @enderror"
+                                            aria-label="Default select example" name="kategori" required>
+                                            <option value="umum" {{ old('kategori', $data->kategori) == 'umum' ? 'selected' : '' }}>Tamu
+                                                Umum</option>
+                                            <option value="khusus" {{ old('kategori', $data->kategori) == 'khusus' ? 'selected' : '' }}>
+                                                Tamu Khusus</option>
+                                        </select>
+                                        @error('kategori')
+                                            <div class="invalid-feedback">
+                                                The kategori field is required.
                                             </div>
                                         @enderror
                                     </div>
@@ -69,7 +85,8 @@
                                             <div class="row">
                                                 @if ($data->image)
                                                     <div class="col-md-4">
-                                                        <img src="/image/{{ $data->image }}" alt="" class="mt-2">
+                                                        <img src="/image/{{ $data->image }}" alt=""
+                                                            class="mt-2">
                                                         <label class="mt-2">Foto Tersimpan</label>
                                                     </div>
                                                 @endif

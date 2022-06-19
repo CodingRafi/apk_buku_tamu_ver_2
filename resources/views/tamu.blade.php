@@ -23,12 +23,10 @@
                 <div class="container d-flex justify-content-center">
                     <img src="/img/logo1.png" class="rounded float-left" alt="SMK TARUNA BHAKTI" style="height:
                     12vw">
-                    <img src="/img/logo.png" class="rounded float-right" alt="..." style="height:
-                    12vw">
                 </div>
-                <h5 class="card-title mt-3">Selamat Datang</h5>
-                <h5 class="card-title" style="font-size: 14px;font-weight: 400;">Ekspose Produk Kreatif SMK bidang
-                    Kelautan Perikanan Teknologi Informasi dan Komunikasi (KPTK)</h5>
+                <h5 class="card-title mt-3">Selamat Datang <br><span style="font-size: 1.3rem">Di SMK TARUNA BHAKTI</span></h5>
+                {{-- <h5 class="card-title" style="font-size: 14px;font-weight: 400;">Ekspose Produk Kreatif SMK bidang
+                    Kelautan Perikanan Teknologi Informasi dan Komunikasi (KPTK)</h5> --}}
                 <a href="/create-data?home=pengunjung" class="btn btn-primary btn-lg btn-block"
                     style="font-size: 13px;height: 37px;margin-top: 22px;">Buat data pengunjung</a>
             </div>

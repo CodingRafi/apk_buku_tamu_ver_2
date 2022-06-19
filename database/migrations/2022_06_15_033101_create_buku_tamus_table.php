@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->String('nama');
             $table->String('instansi');
-            $table->Text('alamat');
+            $table->text('alamat');
+            $table->enum('kategori', ['khusus', 'umum']);
             $table->text('image');
             $table->text('signed');
             $table->timestamps();

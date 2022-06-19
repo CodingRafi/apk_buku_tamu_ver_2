@@ -56,13 +56,13 @@
                 margin: auto;
             }
 
-            .card-nya{
+            .card-nya {
                 margin-top: 4rem !important;
             }
         }
 
-        @media (min-width:481px) and (max-width:850px){
-            .card-nya{
+        @media (min-width:481px) and (max-width:850px) {
+            .card-nya {
                 margin-top: 4rem !important;
             }
         }
@@ -72,7 +72,14 @@
 </head>
 
 <body style="background: url('/img/19742.jpg');background-size: 30rem">
-    <a href="/" class="btn rounded-circle d-flex p-2 bg-white text-danger" type="submit" style="position: absolute;right: 10px;top: 10px;box-shadow: 0px 4px 7px 0px rgb(145 142 142 / 75%);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+    <a href="/" class="btn rounded-circle d-flex p-2 bg-white text-danger" type="submit"
+        style="position: absolute;right: 10px;top: 10px;box-shadow: 0px 4px 7px 0px rgb(145 142 142 / 75%);"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-arrow-left">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg></a>
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="card mt-5 mb-5 card-nya" style="min-width: 70%;box-shadow: 0px 7px 10px 3px rgb(102 101 101 / 75%)">
             <div class="card-header bg-info text-white">
@@ -93,7 +100,7 @@
                             </div>
                         </div>
                         <div class="col p-0 m-auto">
-                           
+
                         </div>
                     </div>
                 </div>
@@ -115,8 +122,8 @@
                     </div>
                     <div class="form-group">
                         <label for="instansi">Instansi</label>
-                        <input type="text" class="form-control @error('instansi') is-invalid @enderror" id="instansi"
-                            name="instansi" placeholder="Instansi Tamu yang berkunjung">
+                        <input type="text" class="form-control @error('instansi') is-invalid @enderror"
+                            id="instansi" name="instansi" placeholder="Instansi Tamu yang berkunjung" value="{{ old('instansi') }}">
                         @error('instansi')
                             <div class="invalid-feedback">
                                 The instansi field is required.
@@ -124,9 +131,22 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="kategori">Kategori</label>
+                        <select class="form-select  @error('kategori') is-invalid @enderror"
+                            aria-label="Default select example" name="kategori" required>
+                            <option value="umum" {{ (old('kategori') == 'umum') ? 'selected' : ''}}>Tamu Umum</option>
+                            <option value="khusus" {{ (old('kategori') == 'khusus') ? 'selected' : ''}}>Tamu Khusus</option>
+                        </select>
+                        @error('kategori')
+                            <div class="invalid-feedback">
+                                The kategori field is required.
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="alamat">Alamat</label>
                         <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" rows="5" name="alamat"
-                            value="{{ old('alamat') }}" placeholder="Alamat tamu yang berkunjung"></textarea>
+                            value="{{ old('alamat') }}" placeholder="Alamat tamu yang berkunjung">{{ old('alamat') }}</textarea>
                         @error('alamat')
                             <div class="invalid-feedback">
                                 The alamat field is required.
@@ -179,101 +199,6 @@
         </div>
     </div>
 
-    {{-- <nav class="navbar navbar-expand-lg navbar-light " style="background: #fff">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="https://bukutamu.millenialsproject.com/image/SmkTarunaBhakti.jpg" alt="" style="height: 5vh">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav> --}}
-
-    {{-- <div class="container d-flex justify-content-center align-items-center">
-        <div class="card mt-5" style="width: 60vw;">
-            <div class="card-body">
-                <form action="{{ route('tambahtamu') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="namatamu">Nama Tamu</label>
-                        <input type="text" class="form-control @error('namatamu') is-invalid @enderror" id="namatamu"
-                            name="nama" value="{{ old('namatamu') }}" placeholder="Nama tamu yang berkunjung">
-
-                        @error('namatamu')
-                            <div class="invalid-feedback">
-                                The nama tamu field is required.
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="instansi">Instansi</label>
-                        <input type="text" class="form-control @error('instansi') is-invalid @enderror" id="instansi"
-                            name="instansi" placeholder="Instansi Tamu yang berkunjung">
-                        @error('instansi')
-                            <div class="invalid-feedback">
-                                The instansi field is required.
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" rows="5" name="alamat"
-                            value="{{ old('alamat') }}" placeholder="Alamat tamu yang berkunjung"></textarea>
-                        @error('alamat')
-                            <div class="invalid-feedback">
-                                The alamat field is required.
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="image">Foto kehadiran</label>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div id="camera"></div>
-                                    <br />
-                                    <input type=button class="btn btn-sm btn-info" value="Take Snapshot"
-                                        onClick="take_snapshot()">
-                                    <input type="hidden" name="image" class="image-tag">
-                                </div>
-                                <div class="col-md-6">
-                                    <div id="results">Your captured image will appear here...</div>
-                                </div>
-                            </div>
-                            @error('image')
-                                <div class="invalid-feedback d-block">
-                                    The picture field is required.
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="tandaTangan">Tanda tangan tamu</label>
-                        <div class="col-md-12">
-                            <br />
-                            <div id="sig"></div>
-                            <br />
-                            <button id="clear" class="btn btn-info">Hapus Tanda Tangan</button>
-                            <textarea id="signature64" name="signed" style="display: none"></textarea>
-                            @error('signed')
-                                <div class="invalid-feedback d-block">
-                                    The signature field is required.
-                                </div>
-                            @enderror
-                        </div>
-
-                    </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-info" type="submit">Simpan</button>
-                        <a href="/" class="btn btn-danger" type="submit">Back</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
@@ -282,7 +207,6 @@
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> --}}
     <script>
         Webcam.set({
             width: 280,

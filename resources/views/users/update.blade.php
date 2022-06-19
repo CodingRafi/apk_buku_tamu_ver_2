@@ -45,18 +45,18 @@
                                     <label for="exampleDataList" class="col-form-label col-md-2">Role</label>
                                     <div class="col-md-10">
 
-                                        <select name="roles" id="datalistOptions" class="form-select">
+                                        <select name="roles" id="datalistOptions" class="form-select text-capitalize">
                                             @foreach ($roles as $role)
                                                 @if ($role !== 'admin')
                                                     @if (count($userRole) > 0)
                                                         @if ($role == $userRole[0]['name'])
-                                                            <option value="{{ $role }}" selected>{{ $role }}
+                                                            <option value="{{ $role }}" selected>{{ str_replace("_", " ", $role) }}
                                                             </option>
                                                         @else
-                                                            <option value="{{ $role }}">{{ $role }}</option>
+                                                            <option value="{{ $role }}">{{ str_replace("_", " ", $role) }}</option>
                                                         @endif
                                                     @else
-                                                        <option value="{{ $role }}">{{ $role }}</option>
+                                                        <option value="{{ $role }}">{{ str_replace("_", " ", $role) }}</option>
                                                     @endif
                                                 @endif
                                             @endforeach
