@@ -13,7 +13,7 @@
                 <div class="nav-item d-flex align-items-center">
                     <button type="submit" style="background: transparent;border: none;"><i class="bx bx-search fs-4 lh-0"></i></button>
                     <input type="text" class="form-control border-0 shadow-none"
-                        placeholder="Search Nama , Instansi, Alamat..." name="search"
+                        placeholder="Search Nama , Instansi" name="search"
                         value="{{ request('search') }}" />
                 </div>
             </div>

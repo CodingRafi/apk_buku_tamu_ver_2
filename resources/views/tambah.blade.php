@@ -92,7 +92,7 @@
                                         <img src="/img/logo1.png" alt="" style="width: 3.5rem;" class="img-tb">
                                     </div>
                                     <div class="col">
-                                        Selamat Datang Di SMK Taruna Bhakti
+                                        Selamat Datang Di SMK TARUNA BHAKTI
                                         <br>
                                         <small>Silahkan isi data pengunjung berikut ini:</small>
                                     </div>
@@ -199,6 +199,12 @@
         </div>
     </div>
 
+    <div class="container-fluid py-3 div-footer" style="background: #fff;">
+        <div class="text-end">
+            <h5 class="m-0" style="font-size: 1rem;">Proudly powered by <a
+                    href="https://github.com/CodingRafi" target="_blank">CodingRafi</a></h5>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>

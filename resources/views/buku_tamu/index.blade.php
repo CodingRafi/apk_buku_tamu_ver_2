@@ -23,10 +23,10 @@
             <div class="card">
                 <div class="container-fluid p-0">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <h5 class="card-header">Buku Tamu</h5>
                         </div>
-                        <div class="col-md-4 d-flex justify-center align-items-center p-0">
+                        <div class="col-md d-flex justify-content-end align-items-center" style="padding-right: 2rem;">
                             <a href="/buku-tamu/create" class="btn btn-primary tombol-buat-user"
                                 style="margin-right: 10px">Create Tamu</a>
                             @can('buku_tamu_ekspor')

@@ -90,6 +90,11 @@
                 <!-- Content wrapper -->
                 @yield('container')
                 <!-- Content wrapper -->
+                <footer class="content-footer footer bg-footer-theme">
+                    <div class="container-xxl d-flex flex-wrap justify-content-end py-2 flex-md-row flex-column">
+                        <h5 class="footer-link me-4" style="font-size: 1rem;">Proudly powered by <a href="https://github.com/CodingRafi" target="_blank">CodingRafi</a></h5>
+                    </div>
+                  </footer>
             </div>
             <!-- / Layout page -->
         </div>
