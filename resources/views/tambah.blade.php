@@ -60,7 +60,7 @@
                 margin-top: 4rem !important;
             }
         }
-
+        
         @media (min-width:481px) and (max-width:850px) {
             .card-nya {
                 margin-top: 4rem !important;
@@ -200,9 +200,18 @@
     </div>
 
     <div class="container-fluid py-3 div-footer" style="background: #fff;">
-        <div class="text-end">
-            <h5 class="m-0" style="font-size: 1rem;">Proudly powered by <a
-                    href="https://github.com/CodingRafi" target="_blank">CodingRafi</a></h5>
+        <div class="row align-items-center">
+            <div class="col-md-4 d-flex align-items-center justify-content-center" style="gap: .5rem;">
+                <img src="/img/logoStarbhakForApp.png" alt="" style="width: 1.7rem;">
+                <h6 class="m-0">SMK TARUNA BHAKTI</h6>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <h5 class="m-0" style="font-size: 1rem;">Proudly powered by <a
+                            href="https://github.com/CodingRafi" target="_blank">CodingRafi</a></h5>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

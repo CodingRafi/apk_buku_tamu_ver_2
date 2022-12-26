@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
-    data-assets-path="/assets/" data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="/assets/"
+    data-template="vertical-menu-template-free">
 
 <head>
     <meta charset="utf-8" />
@@ -73,6 +73,17 @@
         body {
             overflow-x: none;
         }
+
+        @media(max-width:850px) {
+            .text-powered{
+                text-align: center !important;
+                margin-top: .5rem;
+            }
+
+            .div-col-footer{
+                justify-content: center !important;
+            }
+        }
     </style>
 </head>
 
@@ -92,9 +103,17 @@
                 <!-- Content wrapper -->
                 <footer class="content-footer footer bg-footer-theme">
                     <div class="container-xxl d-flex flex-wrap justify-content-end py-2 flex-md-row flex-column">
-                        <h5 class="footer-link me-4" style="font-size: 1rem;">Proudly powered by <a href="https://github.com/CodingRafi" target="_blank">CodingRafi</a></h5>
+                        <div class="col-md-5 d-flex align-items-center div-col-footer" style="gap: .5rem;">
+                            <img src="/img/logoStarbhakForApp.png" alt="" style="width: 1.7rem;">
+                            <h6 class="m-0">SMK TARUNA BHAKTI</h6>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <h5 class="text-end text-powered" style="font-size: 1rem;">Proudly powered by <a
+                                    href="https://github.com/CodingRafi" target="_blank">CodingRafi</a></h5>
+                        </div>
                     </div>
-                  </footer>
+                </footer>
             </div>
             <!-- / Layout page -->
         </div>
@@ -104,11 +123,11 @@
     </div>
 
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible alert-nontifikasi" role="alert"
-            style="position: fixed;right: 2rem;bottom: 1rem;">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+    <div class="alert alert-success alert-dismissible alert-nontifikasi" role="alert"
+        style="position: fixed;right: 2rem;bottom: 1rem;">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     @endif
     <!-- / Layout wrapper -->
 
@@ -143,8 +162,8 @@
     @yield('tambahanjs')
 
     @if (session('success'))
-        <script>
-            const alertNontifikasi = document.querySelector('.alert-nontifikasi');
+    <script>
+        const alertNontifikasi = document.querySelector('.alert-nontifikasi');
             const myTimeout = setTimeout(myGreeting, 5000);
 
             function myGreeting() {
@@ -153,7 +172,7 @@
                     alertNontifikasi.style.display = 'none';
                 }
             }
-        </script>
+    </script>
     @endif
 
 </body>
