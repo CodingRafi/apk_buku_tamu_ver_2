@@ -13,9 +13,34 @@ use Illuminate\Support\Facades\Storage;
 use App\Notifications\SendNotification;
 use Illuminate\Support\Facades\Notification;
 use Auth;
+use GuzzleHttp\Client;
 
 class BukuTamuController extends Controller
 {
+    public function sendMessage($chat_id, $message)
+    {
+        $telegram_token = config('services.telegram-bot-api.token');
+
+        $client = new Client([
+            'base_uri' => 'https://api.telegram.org/bot' . $telegram_token . '/',
+        ]);
+
+        $response = $client->request('POST', 'sendMessage', [
+            'json' => [
+                'chat_id' => ,
+                'text' => $message,
+            ],
+        ]);
+
+        $status = $response->getStatusCode();
+
+        if ($status == 200) {
+            return response()->json(['message' => 'Telegram message sent successfully.']);
+        } else {
+            return response()->json(['error' => 'Failed to send Telegram message.']);
+        }
+    }
+
     public function __construct()
     {
         $this->middleware('permission:view_buku_tamu', ['only' => ['index', 'show']]);
@@ -74,8 +99,11 @@ class BukuTamuController extends Controller
 
         $data = BukuTamu::create($validatedData);
 
-        $data->notify(new SendNotification($data));
-        // Notification::send(new SendNotification($data));
+        // Send to Group Telegram
+        // $data->notify(new SendNotification($data));
+
+        // Send to 1 user
+        $this->sendMessage($data->guru->id_telegram, $data->nama . ' Sedang menunggu');
 
         if (request('home') == 'pengunjung') {
             return redirect("/")->with('success', 'Data Berhasil Ditambahkan');
