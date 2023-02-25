@@ -44,6 +44,15 @@
             </li>
         @endcan
 
+        @can('view_guru', 'add_guru', 'edit_guru', 'delete_guru')
+            <li class="menu-item {{ Request::is('guru*') ? 'active' : '' }}">
+                <a href="{{ route('guru.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <div data-i18n="Analytics">Data Guru</div>
+                </a>
+            </li>
+        @endcan
+
         @can('view_buku_tamu', 'add_buku_tamu', 'edit_buku_tamu', 'delete_buku_tamu', 'buku_tamu_ekspor')
             <li class="menu-item {{ Request::is('buku-tamu*') ? 'active' : '' }}">
                 <a href="{{ route('buku-tamu.index') }}" class="menu-link">

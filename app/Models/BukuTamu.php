@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Rap2hpoutre\FastExcel\FastExcel;
+use Illuminate\Notifications\Notifiable;
 
 class BukuTamu extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $guarded = ['id'];
 
@@ -67,5 +68,9 @@ class BukuTamu extends Model
         $datas = collect($datas);
 
         return (new FastExcel($datas))->download('data.xlsx');
+    }
+
+    public function guru(){
+        return $this->belongsTo(m_guru::class, 'guru_id');
     }
 }

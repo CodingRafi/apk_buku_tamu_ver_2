@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\BukuTamu;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GuruController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\RegisteredUserController;
-use App\Models\BukuTamu;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['auth']], function() {
         return view('dashboard');
     });
     Route::resource('roles', RoleController::class);
+    Route::resource('guru', GuruController::class);
     Route::resource('users', RegisteredUserController::class);
     Route::resource('buku-tamu', BukuTamuController::class);
     Route::get('/excel', [BukuTamuController::class, 'ekspor']);

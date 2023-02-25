@@ -32,6 +32,11 @@ class PermissionTableSeeder extends Seeder
             'buku_tamu_ekspor',
 
             'view_admin',
+
+            'view_guru',
+            'add_guru',
+            'edit_guru',
+            'delete_guru',
         ];
 
         foreach ($permissions as $permission) {

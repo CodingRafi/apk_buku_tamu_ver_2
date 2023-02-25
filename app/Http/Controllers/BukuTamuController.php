@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBukuTamuRequest;
 use App\Http\Requests\UpdateBukuTamuRequest;
-use App\Models\BukuTamu;
+use App\Models\{
+    BukuTamu,
+    m_guru
+};
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\SendNotification;
+use Illuminate\Support\Facades\Notification;
+use Auth;
 
 class BukuTamuController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:view_buku_tamu|edit_buku_tamu|delete_buku_tamu', ['only' => ['index', 'show']]);
+        $this->middleware('permission:view_buku_tamu', ['only' => ['index', 'show']]);
         $this->middleware('permission:edit_buku_tamu', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete_buku_tamu', ['only' => ['destroy']]);
         $this->middleware('permission:buku_tamu_ekspor', ['only' => ['ekspor']]);
@@ -39,7 +45,8 @@ class BukuTamuController extends Controller
      */
     public function create()
     {
-        return view('buku_tamu.create');
+        $gurus = m_guru::all();
+        return view('buku_tamu.create', compact('gurus'));
     }
 
     /**
@@ -57,12 +64,18 @@ class BukuTamuController extends Controller
             'kategori' => 'required',
             'image' => 'required',
             'signed' => 'required',
+            'guru_id' => 'required',
+            'keperluan' => 'required',
+            'no_telp' => 'required'
         ]);
 
         $validatedData['image'] = BukuTamu::create_image($request->image);
         $validatedData['signed'] = BukuTamu::create_sinature($request->signed);
 
-        BukuTamu::create($validatedData);
+        $data = BukuTamu::create($validatedData);
+
+        $data->notify(new SendNotification($data));
+        // Notification::send(new SendNotification($data));
 
         if (request('home') == 'pengunjung') {
             return redirect("/")->with('success', 'Data Berhasil Ditambahkan');
@@ -109,6 +122,9 @@ class BukuTamuController extends Controller
             'instansi' => 'required',
             'kategori' => 'required',
             'alamat' => 'required',
+            'guru_id' => 'required',
+            'keperluan' => 'required',
+            'no_telp' => 'required'
         ]);
 
         if ($request->image) {

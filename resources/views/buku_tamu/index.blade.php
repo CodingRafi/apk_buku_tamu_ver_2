@@ -1,7 +1,6 @@
 @extends('mylayouts.main')
 
 @section('tambahancss')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css">
     <style>
         .swal2-container {
             z-index: 9999 !important;
@@ -137,7 +136,6 @@
 @endsection
 
 @section('tambahanjs')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <script>
         $(".swal-confrim").click(function(e) {
             id = e.target.dataset.id;
@@ -153,12 +151,8 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $(`#delete${id}`).submit();
-                } else {
-
                 }
-
             })
-
         });
     </script>
 

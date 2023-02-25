@@ -21,6 +21,9 @@ return new class extends Migration
             $table->enum('kategori', ['khusus', 'umum']);
             $table->text('image');
             $table->text('signed');
+            $table->foreignId('guru_id')->contrained('m_gurus');
+            $table->text('keperluan');
+            $table->text('no_telp');
             $table->timestamps();
         });
     }

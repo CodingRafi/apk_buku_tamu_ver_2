@@ -40,10 +40,11 @@
 
 
     <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css">
 
     {{-- Tambahan Css --}}
     @yield('tambahancss')
-
+    <link rel="stylesheet" href="{{ asset('css/fstdropdown.css') }}">
     <!-- Helpers -->
     <script src="/assets/vendor/js/helpers.js"></script>
 
@@ -75,12 +76,12 @@
         }
 
         @media(max-width:850px) {
-            .text-powered{
+            .text-powered {
                 text-align: center !important;
                 margin-top: .5rem;
             }
 
-            .div-col-footer{
+            .div-col-footer {
                 justify-content: center !important;
             }
         }
@@ -158,7 +159,11 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script src="{{ asset('js/fstdropdown.js') }}"></script>
+    <script>
+        setFstDropdown();
+    </script>
     @yield('tambahanjs')
 
     @if (session('success'))
