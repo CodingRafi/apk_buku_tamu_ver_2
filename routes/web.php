@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function() {
         return view('dashboard');
     });
     Route::resource('roles', RoleController::class);
+    Route::get('/guru/sync-telegram', [GuruController::class, 'sync_telegram'])->name('guru.sync_telegram');
     Route::resource('guru', GuruController::class);
     Route::resource('users', RegisteredUserController::class);
     Route::resource('buku-tamu', BukuTamuController::class);

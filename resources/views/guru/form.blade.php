@@ -29,7 +29,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="no_telp" class="mt-2">No Telepon</label>
                                         <input type="number"
                                             class="form-control mt-2 @error('no_telp') is-invalid @enderror" id="no_telp"
@@ -40,7 +40,7 @@
                                                 {{ $message }}  
                                             </div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     
                                 <div class="d-flex justify-content-end mt-3">
                                     <button class="btn btn-primary" type="submit">Simpan</button>

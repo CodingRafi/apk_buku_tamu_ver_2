@@ -55,11 +55,14 @@ class BukuTamu extends Model
             $datas[] = [
                 'No' => $key + 1,
                 'Nama' => $data->nama,
+                'No Telepon' => $data->no_telp,
                 'Instansi' => $data->instansi,
                 'Alamat' => $data->alamat,
                 'Kategori' => ($data->kategori == 'khusus') ? 'Tamu Khusus' : 'Tamu Umum',
                 'Foto' => $data->image,
                 'Tanda Tangan' => $data->signed,
+                'Tujuan' => $data->guru->nama,
+                'Keperluan' => $data->keperluan,
                 'Created_at' => \Carbon\Carbon::parse($data->created_at)->format('d, M Y H:i'),
                 'Updated_at' => \Carbon\Carbon::parse($data->updated_at)->format('d, M Y H:i')
             ];

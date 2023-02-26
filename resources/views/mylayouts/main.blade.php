@@ -123,13 +123,6 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
 
-    @if (session('success'))
-    <div class="alert alert-success alert-dismissible alert-nontifikasi" role="alert"
-        style="position: fixed;right: 2rem;bottom: 1rem;">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
@@ -157,6 +150,13 @@
     <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"
+        integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"
+        integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
@@ -164,21 +164,28 @@
     <script>
         setFstDropdown();
     </script>
-    @yield('tambahanjs')
-
-    @if (session('success'))
     <script>
-        const alertNontifikasi = document.querySelector('.alert-nontifikasi');
-            const myTimeout = setTimeout(myGreeting, 5000);
-
-            function myGreeting() {
-                if (alertNontifikasi) {
-                    alertNontifikasi.classList.remove('show');
-                    alertNontifikasi.style.display = 'none';
-                }
+        function showAlert(message, type) {
+            if (type == 'success') {
+                iziToast.success({
+                    title: 'Success',
+                    message: message,
+                    position: 'topRight'
+                });
+            } else {
+                iziToast.error({
+                    title: 'Failed',
+                    message: message,
+                    position: 'topRight'
+                });
             }
+        }
+        @if (session()->has('success')) showAlert("{{ session('success') }}", 'success')
+        @elseif(session()->has('error')) showAlert("{{ session('error') }}", 'error')
+        @endif
     </script>
-    @endif
+    @yield('tambahanjs')
+    
 
 </body>
 

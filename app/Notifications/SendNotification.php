@@ -41,7 +41,7 @@ class SendNotification extends Notification
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-          ->to('1343931098')
+          ->to('1379856738')
           ->content($notifiable->nama . ' Sedang menunggu');
     }
 }

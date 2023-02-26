@@ -27,8 +27,10 @@
                         <h5 class="card-header">Guru</h5>
                     </div>
                     <div class="col-md d-flex justify-content-end align-items-center" style="padding-right: 2rem;">
-                        <a href="{{ route('guru.create') }}" class="btn btn-primary tombol-buat-user"
-                            style="margin-right: 10px">Tambah</a>
+                        <a href="{{ route('guru.sync_telegram') }}" class="btn btn-primary"
+                            style="margin-right: 10px">Sync Telegram</a>
+                        {{-- <a href="{{ route('guru.create') }}" class="btn btn-primary tombol-buat-user"
+                            style="margin-right: 10px">Tambah</a> --}}
                     </div>
                 </div>
             </div>
@@ -39,7 +41,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>NO WA</th>
+                                {{-- <th>NO WA</th> --}}
                                 @can('edit_guru', 'delete_guru')
                                 <th>Actions</th>
                                 @endcan
@@ -50,7 +52,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $guru->nama }}</td>
-                                <td>{{ $guru->no_telp }}</td>
+                                {{-- <td>{{ $guru->no_telp }}</td> --}}
                                 @can('edit_guru', 'delete_guru')
                                 <td>
                                     @can('edit_guru')

@@ -17,17 +17,26 @@ use GuzzleHttp\Client;
 
 class BukuTamuController extends Controller
 {
+    private $telegram_token;
+    
+    public function __construct()
+    {
+        $this->middleware('permission:view_buku_tamu', ['only' => ['index', 'show']]);
+        $this->middleware('permission:edit_buku_tamu', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete_buku_tamu', ['only' => ['destroy']]);
+        $this->middleware('permission:buku_tamu_ekspor', ['only' => ['ekspor']]);
+        $this->telegram_token = config('services.telegram-bot-api.token');
+    }
+
     public function sendMessage($chat_id, $message)
     {
-        $telegram_token = config('services.telegram-bot-api.token');
-
         $client = new Client([
-            'base_uri' => 'https://api.telegram.org/bot' . $telegram_token . '/',
+            'base_uri' => 'https://api.telegram.org/bot' . $this->telegram_token . '/',
         ]);
 
         $response = $client->request('POST', 'sendMessage', [
             'json' => [
-                'chat_id' => ,
+                'chat_id' => $chat_id,
                 'text' => $message,
             ],
         ]);
@@ -39,14 +48,6 @@ class BukuTamuController extends Controller
         } else {
             return response()->json(['error' => 'Failed to send Telegram message.']);
         }
-    }
-
-    public function __construct()
-    {
-        $this->middleware('permission:view_buku_tamu', ['only' => ['index', 'show']]);
-        $this->middleware('permission:edit_buku_tamu', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:delete_buku_tamu', ['only' => ['destroy']]);
-        $this->middleware('permission:buku_tamu_ekspor', ['only' => ['ekspor']]);
     }
 
     /**
@@ -150,8 +151,6 @@ class BukuTamuController extends Controller
             'instansi' => 'required',
             'kategori' => 'required',
             'alamat' => 'required',
-            'guru_id' => 'required',
-            'keperluan' => 'required',
             'no_telp' => 'required'
         ]);
 

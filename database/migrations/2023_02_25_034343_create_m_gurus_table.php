@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('m_gurus', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('no_telp');
+            // $table->string('no_telp');
+            $table->string('id_telegram')->unique();
             $table->timestamps();
         });
     }
