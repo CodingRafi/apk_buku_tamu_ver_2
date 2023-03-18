@@ -73,7 +73,7 @@
 </head>
 
 <body style="background: url('/img/19742.jpg');background-size: 30rem">
-    <a href="/" class="btn rounded-circle d-flex p-2 bg-white text-danger" type="submit"
+    <a href="{{ route('index') }}" class="btn rounded-circle d-flex p-2 bg-white text-danger" type="submit"
         style="position: absolute;right: 10px;top: 10px;box-shadow: 0px 4px 7px 0px rgb(145 142 142 / 75%);"><svg
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
