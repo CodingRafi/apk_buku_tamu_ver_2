@@ -7,15 +7,12 @@ use Illuminate\Http\Request;
 
 class GuruController extends Controller
 {
-    private $telegram_token;
-
     public function __construct()
     {
         $this->middleware('permission:view_guru', ['only' => ['index', 'store']]);
         $this->middleware('permission:add_guru', ['only' => ['create', 'store']]);
         $this->middleware('permission:edit_guru', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete_guru', ['only' => ['destroy']]);
-        $this->telegram_token = config('services.telegram-bot-api.token');
     }
     /**
      * Display a listing of the resource.
@@ -115,7 +112,7 @@ class GuruController extends Controller
     }
 
     public function sync_telegram(){
-        $url = 'https://api.telegram.org/bot' . $this->telegram_token . '/getUpdates';
+        $url = 'https://api.telegram.org/bot' . config('services.telegram-bot-api.token') . '/getUpdates';
 
         $response = file_get_contents($url);
         $data = json_decode($response, true);

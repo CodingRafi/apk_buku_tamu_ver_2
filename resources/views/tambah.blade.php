@@ -15,11 +15,12 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
 
     <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <link type="text/css" href="/css/jquery-ui.css"
-        rel="stylesheet">
+    <link type="text/css" href="/css/jquery-ui.css" rel="stylesheet">
 
 
     <link rel="stylesheet" type="text/css" href="/css/jquery.signature.css">
+    <link rel="stylesheet" href="{{ asset('css/fstdropdown.css') }}">
+    <script src="{{ asset('js/fstdropdown.js') }}"></script>
 
     <style>
         .kbw-signature {
@@ -60,7 +61,7 @@
                 margin-top: 4rem !important;
             }
         }
-        
+
         @media (min-width:481px) and (max-width:850px) {
             .card-nya {
                 margin-top: 4rem !important;
@@ -107,54 +108,70 @@
 
             </div>
             <div class="card-body">
-                <form action="/store-data?home=pengunjung" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('tamu.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
-                        <label for="nama">Nama Tamu</label>
-                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                    <div class="form-group mb-2">
+                        <label for="nama" class="form-label">Nama Tamu</label>
+                        <input type="text" class="mt-2 form-control @error('nama') is-invalid @enderror" id="nama"
                             name="nama" value="{{ old('nama') }}" placeholder="Nama tamu yang berkunjung">
 
                         @error('nama')
-                            <div class="invalid-feedback">
-                                The nama tamu field is required.
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="instansi">Instansi</label>
-                        <input type="text" class="form-control @error('instansi') is-invalid @enderror"
-                            id="instansi" name="instansi" placeholder="Instansi Tamu yang berkunjung" value="{{ old('instansi') }}">
+                    <div class="form-group mb-2">
+                        <label for="no_telp" class="form-label">No Telepon</label>
+                        <input type="number" class="mt-2 form-control @error('no_telp') is-invalid @enderror"
+                            id="no_telp" name="no_telp" value="{{ old('no_telp') }}"
+                            placeholder="No Telepon yang berkunjung">
+
+                        @error('no_telp')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="instansi" class="form-label">Instansi</label>
+                        <input type="text" class="form-control mt-2 @error('instansi') is-invalid @enderror"
+                            id="instansi" name="instansi" placeholder="Instansi Tamu yang berkunjung"
+                            value="{{ old('instansi') }}">
                         @error('instansi')
-                            <div class="invalid-feedback">
-                                The instansi field is required.
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="kategori">Kategori</label>
-                        <select class="form-select  @error('kategori') is-invalid @enderror"
+                    <div class="form-group mb-2">
+                        <label for="kategori" class="form-label">Kategori</label>
+                        <select class="form-select mt-2 @error('instansi') is-invalid @enderror"
                             aria-label="Default select example" name="kategori" required>
-                            <option value="umum" {{ (old('kategori') == 'umum') ? 'selected' : ''}}>Tamu Umum</option>
-                            <option value="khusus" {{ (old('kategori') == 'khusus') ? 'selected' : ''}}>Tamu Khusus</option>
+                            <option value="umum" {{ old('kategori')=='umum' ? 'selected' : '' }}>Tamu
+                                Umum</option>
+                            <option value="khusus" {{ old('kategori')=='khusus' ? 'selected' : '' }}>
+                                Tamu Khusus</option>
                         </select>
                         @error('kategori')
-                            <div class="invalid-feedback">
-                                The kategori field is required.
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" rows="5" name="alamat"
-                            value="{{ old('alamat') }}" placeholder="Alamat tamu yang berkunjung">{{ old('alamat') }}</textarea>
+                    <div class="form-group mb-2">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <textarea class="form-control mt-2 @error('alamat') is-invalid @enderror" id="alamat" rows="5"
+                            name="alamat" value="{{ old('alamat') }}"
+                            placeholder="Alamat tamu yang berkunjung">{{ old('alamat') }}</textarea>
                         @error('alamat')
-                            <div class="invalid-feedback">
-                                The alamat field is required.
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="image">Foto kehadiran</label>
+                    <div class="form-group mb-2">
+                        <label for="image" class="form-label">Foto kehadiran</label>
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6">
@@ -169,14 +186,14 @@
                                 </div>
                             </div>
                             @error('image')
-                                <div class="invalid-feedback d-block">
-                                    The picture field is required.
-                                </div>
+                            <div class="invalid-feedback d-block">
+                                The picture field is required.
+                            </div>
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="tandaTangan">Tanda tangan tamu</label>
+                    <div class="form-group mb-2">
+                        <label for="tandaTangan" class="form-label">Tanda tangan tamu</label>
                         <div class="col-md-12">
                             <br />
                             <div id="sig"></div>
@@ -184,12 +201,37 @@
                             <button id="clear" class="btn btn-danger">Hapus Tanda Tangan</button>
                             <textarea id="signature64" name="signed" style="display: none"></textarea>
                             @error('signed')
-                                <div class="invalid-feedback d-block">
-                                    The signature field is required.
-                                </div>
+                            <div class="invalid-feedback d-block">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
 
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="guru_id" class="form-label">Tujuan</label>
+                        <select class="fstdropdown-select @error('guru_id') is-invalid @enderror" name="guru_id"
+                            id="guru_id" style=" font-size: 15px; height: 6.5vh;">
+                            @foreach ($gurus as $guru)
+                            <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
+                            @endforeach
+                        </select>
+                        @error('guru')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="keperluan" class="form-label">Keperluan</label>
+                        <textarea class="form-control mt-2 @error('keperluan') is-invalid @enderror" id="keperluan"
+                            rows="5" name="keperluan" value="{{ old('keperluan') }}"
+                            placeholder="keperluan tamu yang berkunjung">{{ old('keperluan') }}</textarea>
+                        @error('keperluan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-info" type="submit">Simpan</button>
@@ -208,8 +250,8 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <div class="text-center">
-                    <h5 class="m-0" style="font-size: 1rem;">Proudly powered by <a
-                            href="https://github.com/CodingRafi" target="_blank">CodingRafi</a></h5>
+                    <h5 class="m-0" style="font-size: 1rem;">Proudly powered by <a href="https://github.com/CodingRafi"
+                            target="_blank">CodingRafi</a></h5>
                 </div>
             </div>
         </div>

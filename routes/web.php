@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BukuTamuController;
+use App\Http\Controllers\Public\BukuTamuController as PublicBukuTamuController;
 use App\Http\Controllers\RegisteredUserController;
 
 /*
@@ -20,10 +21,10 @@ use App\Http\Controllers\RegisteredUserController;
 
 Route::get('/', function () {
     return view('tamu');
-});
-Route::get('create-data', [BukuTamuController::class, 'create_tamu']);
-Route::post('store-data', [BukuTamuController::class, 'store']);
+})->name('index');
 
+Route::get('create', [PublicBukuTamuController::class, 'create'])->name('tamu.create');
+Route::post('store', [PublicBukuTamuController::class, 'store'])->name('tamu.store');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/dashboard', function(){

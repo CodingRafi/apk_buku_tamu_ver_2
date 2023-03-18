@@ -143,7 +143,31 @@
                                         </div>
                                         @enderror
                                     </div>
-
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label for="guru_id" class="form-label">Tujuan</label>
+                                    <select class="fstdropdown-select @error('guru_id') is-invalid @enderror"
+                                        name="guru_id" id="guru_id" style=" font-size: 15px; height: 6.5vh;">
+                                        @foreach ($gurus as $guru)
+                                        <option value="{{ $guru->id }}" {{ ($guru->id == $data->guru_id ? 'selected' : '') }}>{{ $guru->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('guru')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label for="keperluan" class="form-label">Keperluan</label>
+                                    <textarea class="form-control mt-2 @error('keperluan') is-invalid @enderror"
+                                        id="keperluan" rows="5" name="keperluan" 
+                                        placeholder="keperluan tamu yang berkunjung">{{ $data->keperluan }}</textarea>
+                                    @error('keperluan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -17,37 +17,12 @@ use GuzzleHttp\Client;
 
 class BukuTamuController extends Controller
 {
-    private $telegram_token;
-    
     public function __construct()
     {
         $this->middleware('permission:view_buku_tamu', ['only' => ['index', 'show']]);
         $this->middleware('permission:edit_buku_tamu', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete_buku_tamu', ['only' => ['destroy']]);
         $this->middleware('permission:buku_tamu_ekspor', ['only' => ['ekspor']]);
-        $this->telegram_token = config('services.telegram-bot-api.token');
-    }
-
-    public function sendMessage($chat_id, $message)
-    {
-        $client = new Client([
-            'base_uri' => 'https://api.telegram.org/bot' . $this->telegram_token . '/',
-        ]);
-
-        $response = $client->request('POST', 'sendMessage', [
-            'json' => [
-                'chat_id' => $chat_id,
-                'text' => $message,
-            ],
-        ]);
-
-        $status = $response->getStatusCode();
-
-        if ($status == 200) {
-            return response()->json(['message' => 'Telegram message sent successfully.']);
-        } else {
-            return response()->json(['error' => 'Failed to send Telegram message.']);
-        }
     }
 
     /**
@@ -81,7 +56,7 @@ class BukuTamuController extends Controller
      * @param  \App\Http\Requests\StoreBukuTamuRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBukuTamuRequest $request)
+    public function store(StoreBukuTamuRequest $request, $home = 'dashboard')
     {
         $validatedData = $request->validate([
             'nama' => 'required',
@@ -99,16 +74,9 @@ class BukuTamuController extends Controller
         $validatedData['signed'] = BukuTamu::create_sinature($request->signed);
 
         $data = BukuTamu::create($validatedData);
+        $this->sendMessageTele($data->guru->id_telegram, $data->nama . ' Sedang menunggu');
 
-        // Send to Group Telegram
-        // $data->notify(new SendNotification($data));
-
-        // Send to 1 user
-        $this->sendMessage($data->guru->id_telegram, $data->nama . ' Sedang menunggu');
-
-        if (request('home') == 'pengunjung') {
-            return redirect("/")->with('success', 'Data Berhasil Ditambahkan');
-        } else {
+        if ($home == 'dashboard') {
             return redirect("/buku-tamu")->with('success', 'Data Berhasil Ditambahkan');
         }
     }
@@ -132,8 +100,10 @@ class BukuTamuController extends Controller
      */
     public function edit(BukuTamu $bukuTamu)
     {
+        $gurus = m_guru::all();
         return view('buku_tamu.update', [
             'data' => $bukuTamu,
+            'gurus' => $gurus
         ]);
     }
 
@@ -151,7 +121,9 @@ class BukuTamuController extends Controller
             'instansi' => 'required',
             'kategori' => 'required',
             'alamat' => 'required',
-            'no_telp' => 'required'
+            'no_telp' => 'required',
+            'guru_id' => 'required',
+            'keperluan' => 'required',
         ]);
 
         if ($request->image) {
@@ -192,11 +164,6 @@ class BukuTamuController extends Controller
         BukuTamu::destroy($bukuTamu->id);
 
         return redirect('/buku-tamu')->with('success', 'Data Berhasil DiHapus!');
-    }
-
-    public function create_tamu()
-    {
-        return view('tambah');
     }
 
     public function ekspor()
