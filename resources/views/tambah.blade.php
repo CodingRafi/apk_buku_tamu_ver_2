@@ -14,11 +14,11 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
 
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <link type="text/css" href="/css/jquery-ui.css" rel="stylesheet">
+    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+    <link type="text/css" href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
 
 
-    <link rel="stylesheet" type="text/css" href="/css/jquery.signature.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.signature.css') }}">
     <link rel="stylesheet" href="{{ asset('css/fstdropdown.css') }}">
     <script src="{{ asset('js/fstdropdown.js') }}"></script>
 
@@ -72,7 +72,7 @@
     <title>SMK Taruna Bhakti</title>
 </head>
 
-<body style="background: url('/img/19742.jpg');background-size: 30rem">
+<body style="background: url('{{ asset('img/19742.jpg') }}');background-size: 30rem">
     <a href="{{ route('index') }}" class="btn rounded-circle d-flex p-2 bg-white text-danger" type="submit"
         style="position: absolute;right: 10px;top: 10px;box-shadow: 0px 4px 7px 0px rgb(145 142 142 / 75%);"><svg
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -90,7 +90,7 @@
                             <div class="container-fluid p-0 container-header">
                                 <div class="row row-header">
                                     <div class="col-1 mr-2 col-img">
-                                        <img src="/img/logo1.png" alt="" style="width: 3.5rem;" class="img-tb">
+                                        <img src="{{ asset('img/logo1.png') }}" alt="" style="width: 3.5rem;" class="img-tb">
                                     </div>
                                     <div class="col">
                                         Selamat Datang Di SMK TARUNA BHAKTI
@@ -244,7 +244,7 @@
     <div class="container-fluid py-3 div-footer" style="background: #fff;">
         <div class="row align-items-center">
             <div class="col-md-4 d-flex align-items-center justify-content-center" style="gap: .5rem;">
-                <img src="/img/logoStarbhakForApp.png" alt="" style="width: 1.7rem;">
+                <img src="{{ asset('img/logoStarbhakForApp.png') }}" alt="" style="width: 1.7rem;">
                 <h6 class="m-0">SMK TARUNA BHAKTI</h6>
             </div>
             <div class="col-md-4"></div>
@@ -262,8 +262,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
 
-    <script src="/js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.signature.js"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.signature.js') }}"></script>
     <script>
         Webcam.set({
             width: 280,
